@@ -167,3 +167,17 @@ t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
 t.rep('  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);',
       '  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);\n  s.screens.forEach(sc => { if (sc.id === "s-lektion" && sc.name === "10 – 12 Uhr") sc.name = "Halbklasse"; }); // Eulenkiste: Vorlage umbenannt')
 t.schreibe('tagesfolie/index.html')
+
+# ---------------------------------------------------------------- Otterteich (Lautstärkenregler)
+o = Bau('otterteich')
+# Das Original lädt nichts nach (Schriften eingebaut). Nur Eulen-Logo und Feder aus der Eulenkiste zusätzlich erlauben.
+# Die gespeicherte Datei beginnt mit einer Hülle aus Claude (eigene <head>/<body>): weg damit, sonst ignoriert der Browser die Sicherheitsregeln
+o.rex(r'^<!doctype html><html><head><meta charset=utf8>.*?</style></head><body>\n', '')
+o.rep("img-src data:;", "img-src data: 'self';")
+o.rep('<title>Otterteich</title>', '<title>Lautstärkenregler – Otterteich</title>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
+# Knopf oben links zurück zur Eulenkiste; der Otter-Zähler rutscht darunter
+o.rep('<canvas id="cv" aria-label="Animierter Otterteich"></canvas>',
+      '<canvas id="cv" aria-label="Animierter Otterteich"></canvas>\n<div class="ot-back">' + ZURUECK + '</div>')
+o.rep('.pill{background:var(--pill);', ZURUECK_CSS + '\n.ot-back{position:fixed;z-index:35;top:max(14px,env(safe-area-inset-top,0px));left:max(14px,env(safe-area-inset-left,0px))}'
+      '\n.count{margin-top:56px}\n.pill{background:var(--pill);')
+o.schreibe('otterteich/index.html')
