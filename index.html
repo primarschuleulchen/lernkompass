@@ -8,15 +8,15 @@
 <meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/png" href="eulenkiste-icon.png?v=2">
 <link rel="stylesheet" href="schriften/schriften.css?v=2">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
 <header class="kopf">
   <div class="innen">
     <a class="marke" href="#start" aria-label="Eulenkiste – nach oben">
-      <img src="eulenkiste.webp?v=2" alt="" width="56" height="56">
-      <span><b>Eulenkiste</b><small>von Primarschuleulchen</small></span>
+      <span class="marke-bild"><img src="eulenkiste.webp?v=2" alt="" width="64" height="64"></span>
+      <span class="marke-text"><b>Eulen<em>kiste</em><i aria-hidden="true">✦</i></b><small>von Primarschuleulchen</small></span>
     </a>
     <nav class="nav" aria-label="Seitennavigation">
       <a href="#tools">Tools</a>
@@ -63,14 +63,14 @@
       <div class="karten">
         <!-- Neues Tool: Karte kopieren, Farbe (blau, rosa, gruen, gelb), Symbol, Text und Links anpassen. -->
         <article class="karte blau">
+          <span class="sym bild-rund" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="#1f2421" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="18" cy="23" rx="6" ry="7.5" fill="#fff"/><ellipse cx="30" cy="22" rx="6" ry="7.5" fill="#fbf3dc"/><path d="M5 26c2 9 9 14 19 14s17-5 19-14"/><path d="M5 26h38"/><path d="M8 31c6 2 12 3 16 3s10-1 16-3M13 36l4-4M22 38l3-4M31 37l2-4"/></svg>
+          </span>
+          <h3>Knobelnest</h3>
           <span class="hinweis login">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
             mit Anmeldung
           </span>
-          <span class="sym" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#1f2421" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="18" cy="23" rx="6" ry="7.5" fill="#fff"/><ellipse cx="30" cy="22" rx="6" ry="7.5" fill="#fbf3dc"/><path d="M5 26c2 9 9 14 19 14s17-5 19-14"/><path d="M5 26h38"/><path d="M8 31c6 2 12 3 16 3s10-1 16-3M13 36l4-4M22 38l3-4M31 37l2-4"/></svg>
-          </span>
-          <h3>Knobelnest</h3>
           <p>Das Schulportal mit Lernspielen für Kinder und Klassenwerkzeugen für Lehrpersonen.</p>
           <div class="marken" aria-label="Darin enthalten">
             <span>Lernspiele</span><span>Vokabelkiste</span><span>Tagesfolie</span><span>Hausaufgabenheft</span><span>Pinnwand</span><span>Otterteich</span><span>Atelier</span>
@@ -84,11 +84,7 @@
         </article>
 
         <a class="karte gruen klickbar" href="tagesfolie/" aria-label="Tagesfolie öffnen">
-          <span class="hinweis frei">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>
-            ohne Anmeldung
-          </span>
-          <span class="sym" aria-hidden="true">
+          <span class="sym bild-rund" aria-hidden="true">
             <svg viewBox="0 0 48 48" fill="none" stroke="#1f2421" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="26" rx="3" fill="#fff"/><path d="M11 15h12M11 21h16M11 27h9"/><circle cx="35" cy="17" r="4" fill="#f3d27a"/><path d="M18 34l-4 8M30 34l4 8M24 34v4"/></svg>
           </span>
           <h3>Tagesfolie</h3>
@@ -96,19 +92,13 @@
         </a>
 
         <a class="karte rosa klickbar" href="gluecksrad/" aria-label="Glücksrad öffnen">
-          <span class="hinweis frei">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>
-            ohne Anmeldung
-          </span>
-          <span class="sym" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#1f2421" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="16" fill="#fff"/><path d="M24 26V10M24 26l13.9 8M24 26l-13.9 8"/><path d="M24 26l13.9-8M24 26l-13.9-8M24 26v16" stroke-width="1.5"/><circle cx="24" cy="26" r="3" fill="#ec9d95"/><path d="M20 4h8l-4 7z" fill="#ec9d95"/></svg>
-          </span>
+          <span class="bild-rund mit-bild" aria-hidden="true"><img src="gluecksrad-bild.webp" alt="" width="220" height="220" loading="lazy"></span>
           <h3>Glücksrad</h3>
           <p>Namen oder Begriffe eingeben und drehen: für Ämtli, Gruppen oder wer als Nächstes dran ist.</p>
         </a>
 
         <article class="karte leer">
-          <span class="sym" aria-hidden="true">
+          <span class="sym bild-rund" aria-hidden="true">
             <svg viewBox="0 0 48 48" fill="none" stroke="#1f2421" stroke-width="2.5" stroke-linecap="round"><path d="M24 12v24M12 24h24"/></svg>
           </span>
           <h3>Weitere Tools folgen</h3>

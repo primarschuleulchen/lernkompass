@@ -15,6 +15,8 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
   - `gluecksrad/` und `tagesfolie/`: Schriften lokal (`schriften/schriften.css`), Knopf oben links zurück zur Eulenkiste (Pfeil + Eulen-Logo, `ZURUECK` in bauen.py), Tagesfolie ohne Konto/Datenbank.
   - Tagesfolie: Arbeitsstand und Otterteich grau in der Leiste («Nur im Knobelnest – jetzt anmelden und freischalten»); Link zum Kaufen später in `KN_LINK`.
 - Logo (von der Lehrerin gezeichnet): `logo.webp` (Lehrerin mit Eule in der Holzkiste), `eulenkiste.webp` (nur Eule, rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
+- Karten: mittig, rundes Medaillon oben (`.bild-rund`, Bild wie `gluecksrad-bild.webp` oder Symbol mit Goldrand), Titel mit ✦ ✧ ✦ darunter. Kein «ohne Anmeldung»-Schild.
+- Mauszeiger: Feder (`feder.png`, beim Zeigen auf Links `feder-gold.png`; Quelle `feder.svg`).
 - Schrift: überall Patrick Hand (`--ui`), nur eine Stärke (font-weight 400). Schatten blau und weich (`--schatten`).
 - Cache-Bremse: `style.css?v=N` in den HTML-Dateien erhöhen, wenn sich `style.css` ändert.
 
