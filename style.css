@@ -18,9 +18,6 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-/* Feder als Mauszeiger, solange sich die Maus bewegt (feder.js) */
-html.feder,html.feder body,html.feder body *{cursor:none}
-html.feder input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]),html.feder textarea,html.feder [contenteditable]{cursor:text}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:20px;line-height:1.5}
 h1,h2,h3{font-family:var(--hand);font-weight:400;line-height:1.1;margin:0;letter-spacing:.01em}
 p{margin:0}
@@ -137,7 +134,7 @@ a{color:var(--link)}
 .fuss-nav a:hover{background:#fff;box-shadow:var(--schatten)}
 .insta{display:flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;border-radius:999px;background:#fff;text-decoration:none;color:var(--ink);box-shadow:var(--schatten);border:1.5px solid #f1e2b8;transition:transform .15s, box-shadow .15s}
 .insta:hover{transform:translateY(-2px);box-shadow:var(--schatten-hoch)}
-.insta-sym{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f3c46b 0%,#e9897f 50%,#9b84c4 100%)}
+.insta-sym{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9fd0f3 0%,#5f97c8 55%,#3f78a8 100%);box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--gold)}
 .insta-sym svg{width:24px;height:24px}
 .insta small{display:block;font-size:16px;color:var(--muted);line-height:1.1}
 .insta b{display:block;font-size:22px;font-weight:400;line-height:1.15}

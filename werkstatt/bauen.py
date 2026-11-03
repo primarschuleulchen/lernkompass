@@ -51,13 +51,10 @@ def schriften(b):
 
 # Knopf oben links zurück zur Eulenkiste: Pfeil und das runde Eulen-Logo
 ZURUECK = ('<a class="lk-back" href="../" title="Zurück zur Eulenkiste" aria-label="Zurück zur Eulenkiste">'
-           '<span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a>'
-           '<script src="../feder.js"></script>')
+           '<span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a>')
 ZURUECK_CSS = ('a.lk-back{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 13px;border-radius:999px;background:#fff;'
                'color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}'
-               'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}'
-               # Feder als Mauszeiger, solange sich die Maus bewegt (feder.js)
-               '\nhtml.feder,html.feder body,html.feder body *{cursor:none}\nhtml.feder input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]),html.feder textarea,html.feder [contenteditable]{cursor:text}')
+               'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}')
 
 # ---------------------------------------------------------------- Glücksrad
 g = Bau('gluecksrad')
@@ -171,11 +168,10 @@ t.schreibe('tagesfolie/index.html')
 
 # ---------------------------------------------------------------- Otterteich (Lautstärkenregler)
 o = Bau('otterteich')
-# Das Original lädt nichts nach (Schriften eingebaut). Nur Eulen-Logo und Feder aus der Eulenkiste zusätzlich erlauben.
+# Das Original lädt nichts nach (Schriften eingebaut). Nur das Eulen-Logo aus der Eulenkiste zusätzlich erlauben.
 # Die gespeicherte Datei beginnt mit einer Hülle aus Claude (eigene <head>/<body>): weg damit, sonst ignoriert der Browser die Sicherheitsregeln
 o.rex(r'^<!doctype html><html><head><meta charset=utf8>.*?</style></head><body>\n', '')
 o.rep("img-src data:;", "img-src data: 'self';")
-o.rep("script-src 'unsafe-inline';", "script-src 'unsafe-inline' 'self';")
 o.rep('<title>Otterteich</title>', '<title>Lautstärkenregler – Otterteich</title>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
 # Knopf oben links zurück zur Eulenkiste; der Otter-Zähler rutscht darunter
 o.rep('<canvas id="cv" aria-label="Animierter Otterteich"></canvas>',
