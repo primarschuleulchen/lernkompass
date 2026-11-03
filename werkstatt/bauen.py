@@ -49,14 +49,31 @@ def schriften(b):
           '<link rel="stylesheet" href="../schriften/schriften.css">\n<meta name="referrer" content="no-referrer">\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
 
 
-ZURUECK_CSS = 'a.pill.lk-back{text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px}'
+# Knopf oben links zurück zur Eulenkiste: Pfeil und das runde Eulen-Logo
+ZURUECK = ('<a class="lk-back" href="../" title="Zurück zur Eulenkiste" aria-label="Zurück zur Eulenkiste">'
+           '<span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a>')
+ZURUECK_CSS = ('a.lk-back{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 13px;border-radius:999px;background:#fff;'
+               'color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}'
+               'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}')
 
 # ---------------------------------------------------------------- Glücksrad
 g = Bau('gluecksrad')
 schriften(g)
 # Knopf zurück zur Eulenkiste, vor «Ton an»
-g.rep('<button class="pill" id="sound"',
-      '<a class="pill lk-back" href="../">← Eulenkiste</a>\n      <button class="pill" id="sound"')
+g.rep('''  <header>
+    <div>
+      <div class="eyebrow">Wer ist dran? Was machen wir?</div>
+      <h1>Glücksrad</h1>
+    </div>
+    <div class="tools">''', '''  <header>
+    ''' + ZURUECK + '''
+    <div class="tools">''')
+# Titel in der Mitte über dem Rad
+g.rep('''    <section class="card wheel-card">
+''', '''    <section class="card wheel-card">
+      <div class="titel-mitte"><div class="eyebrow">Wer ist dran? Was machen wir?</div><h1>Glücksrad</h1></div>
+''')
+g.rep('header{display:flex;align-items:flex-end;', '.titel-mitte{text-align:center;margin-bottom:-4px}\nheader{display:flex;align-items:center;')
 g.rep('.pill:hover{', ZURUECK_CSS + '\n.pill:hover{')
 g.schreibe('gluecksrad/index.html')
 
@@ -65,7 +82,7 @@ t = Bau('tagesfolie')
 schriften(t)
 # Knopf zurück zur Eulenkiste, ganz links in der oberen Leiste
 t.rep('<div class="top">\n    <div class="tabs"',
-      '<div class="top">\n    <a class="pill lk-back" href="../" title="Zurück zur Eulenkiste">←</a>\n    <div class="tabs"')
+      '<div class="top">\n    ' + ZURUECK + '\n    <div class="tabs"')
 
 # Kein Konto, keine Datenbank: alles bleibt auf diesem Gerät (auch wenn die Seite in Claude geöffnet würde)
 t.rep('    if (!window.claude?.use) return;\n',
@@ -144,4 +161,6 @@ t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
         W("timer", 46.5, 62, 27.5, 22.5, { total: 1200, left: 1200 }),
         W("traffic", 77, 63, 7, 21)
       ]}''')
+t.rep('  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);',
+      '  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);\n  s.screens.forEach(sc => { if (sc.id === "s-lektion" && sc.name === "10 – 12 Uhr") sc.name = "Halbklasse"; }); // Eulenkiste: Vorlage umbenannt')
 t.schreibe('tagesfolie/index.html')
