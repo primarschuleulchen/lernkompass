@@ -92,6 +92,8 @@ a{color:var(--link)}
 .marken span{font-size:16px;font-weight:400;padding:3px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
 .hinweis{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 8px;font-size:15px;font-weight:400;padding:4px 10px;border-radius:999px;border:1.5px solid var(--ink)}
 .hinweis.login{background:var(--sky-soft)}
+.bild-rund{position:relative}
+.hinweis.auf-bild{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);margin:0;white-space:nowrap;background:#fff;border:1.5px solid var(--gold);box-shadow:0 4px 12px rgba(63,120,168,.18);font-size:15px}
 .hinweis.bald{background:var(--sun-soft)}
 .hinweis.frei{background:var(--leaf-soft)}
 .links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-top:auto;padding-top:20px}
