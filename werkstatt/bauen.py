@@ -86,9 +86,9 @@ t.rep('''$("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></s
 (() => {
   const tip = document.createElement("div"); tip.className = "kn-tip"; tip.setAttribute("role", "tooltip"); APP.appendChild(tip);
   let zu = 0;
-  const zeige = b => {
+  const zeige = (b, text) => {
     clearTimeout(zu);
-    tip.innerHTML = `<b>🔒 ${esc(KN_TIP)}</b>` + (KN_LINK ? ` <a href="${esc(KN_LINK)}" target="_blank" rel="noopener">Mehr erfahren</a>` : "");
+    tip.innerHTML = text ? `<b>💡 ${esc(text)}</b>` : `<b>🔒 ${esc(KN_TIP)}</b>` + (KN_LINK ? ` <a href="${esc(KN_LINK)}" target="_blank" rel="noopener">Mehr erfahren</a>` : "");
     tip.classList.add("show");
     const r = b.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
     tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + "px";
@@ -102,6 +102,11 @@ t.rep('''$("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></s
     b.addEventListener("blur", weg);
     b.addEventListener("click", () => { zeige(b); clearTimeout(zu); zu = setTimeout(() => tip.classList.remove("show"), 3500); });
   });
+  // Zufallsname und Gruppen funktionieren hier auch, im Knobelnest gibt es aber mehr: Hinweis beim Darüberfahren
+  $("#dock").querySelectorAll('[data-add="random"],[data-add="groups"]').forEach(b => {
+    b.addEventListener("mouseenter", () => zeige(b, KN_KLASSE));
+    b.addEventListener("mouseleave", weg);
+  });
   tip.addEventListener("mouseenter", () => clearTimeout(zu));
   tip.addEventListener("mouseleave", weg);
   $("#dock").addEventListener("scroll", () => tip.classList.remove("show"), { passive: true });
@@ -111,6 +116,7 @@ t.rep('const DOCK = [',
 const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Otterteich", `''' + OTTER_ICON + '''`] };
 const KN_TIP = "Nur im Knobelnest – jetzt anmelden und freischalten";
 const KN_LINK = "";
+const KN_KLASSE = "Im Knobelnest ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = [''')
 t.rep('.dock .sep{', '''.dock button.locked{color:#9aa39d;cursor:help}
 .dock button.locked svg{opacity:.55}
@@ -120,4 +126,22 @@ t.rep('.dock .sep{', '''.dock button.locked{color:#9aa39d;cursor:help}
 .kn-tip a{color:#bfe3fb;font-weight:800}
 ''' + ZURUECK_CSS + '''
 .dock .sep{''')
+# Zweiter Start-Bildschirm heisst «Halbklasse» und ist so angeordnet, wie die Lehrerin ihn eingerichtet hat
+t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
+        W("title", 24, 0, 42, 18, { text: "10 – 12 Uhr", color: TITLE_COLORS[2] }),
+        W("date", 76, 1, 15, 26),
+        W("list", 4, 24, 28, 40, { heading: "Deutsch", items: mkItems(["Lesekartei","Arbeitsheft S. 24"]) }),
+        W("list", 35, 24, 28, 40, { heading: "Mathe", items: mkItems(["Plusaufgaben bis 100","Rechenkartei"]) }),
+        W("material", 4, 60, 40, 30, { keys: ["bleistift","radiergummi","lineal","heft"] }),
+        W("timer", 68, 34, 28, 28, { total: 1200, left: 1200 }),
+        W("traffic", 86, 66, 7, 26)
+      ]}''', '''      { id: "s-lektion", name: "Halbklasse", bg: "", widgets: [
+        W("title", 26, 4, 42, 18, { text: "Halbklasse" }),
+        W("list", 5, 28, 29, 22, { heading: "Deutsch", items: mkItems(["Lesekartei","Arbeitsheft S. 24"]) }),
+        W("list", 36, 28, 31, 22, { heading: "Mathe", items: mkItems(["Plusaufgaben bis 100","Rechenkartei"]) }),
+        W("date", 71, 26, 15, 26),
+        W("material", 5, 61, 39, 27, { keys: ["bleistift","radiergummi","lineal","heft"] }),
+        W("timer", 46.5, 62, 27.5, 22.5, { total: 1200, left: 1200 }),
+        W("traffic", 77, 63, 7, 21)
+      ]}''')
 t.schreibe('tagesfolie/index.html')

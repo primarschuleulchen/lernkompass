@@ -14,7 +14,8 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
 - Tools aus Originalen der Lehrerin: Original nach `werkstatt/originale/<tool>.html`, dann `python3 werkstatt/bauen.py` (ersetzt genau festgelegte Textstellen, bricht bei «Anzahl 0 statt 1» ab). Änderungen an Tools immer im Skript machen, nicht nur in der fertigen Datei.
   - `gluecksrad/` und `tagesfolie/`: Schriften lokal (`schriften/schriften.css`), Knopf zurück zur Eulenkiste, Tagesfolie ohne Konto/Datenbank.
   - Tagesfolie: Arbeitsstand und Otterteich grau in der Leiste («Nur im Knobelnest – jetzt anmelden und freischalten»); Link zum Kaufen später in `KN_LINK`.
-- Logo: `logo.webp` (Lehrerin mit Eule in der Kiste, gross), `eulenkiste.webp` (rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
+- Logo (von der Lehrerin gezeichnet): `logo.webp` (Lehrerin mit Eule in der Holzkiste), `eulenkiste.webp` (nur Eule, rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
+- Schriftproben: Beschreibungen haben vorübergehend je eine andere Schrift (`data-probe`, Schild `.probe`). Nach dem Entscheid der Lehrerin entfernen und die gewählte Schrift als `--ui` setzen.
 - Cache-Bremse: `style.css?v=N` in den HTML-Dateien erhöhen, wenn sich `style.css` ändert.
 
 ## Veröffentlichen
