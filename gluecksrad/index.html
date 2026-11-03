@@ -34,12 +34,13 @@ button{cursor:pointer}
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 32px;
   display:flex;flex-direction:column;gap:16px}
 
-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.titel-mitte{text-align:center;margin-bottom:-4px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .eyebrow{font-family:var(--hand);font-size:19px;color:var(--rose-deep);letter-spacing:.02em}
 h1{margin:0;font-family:var(--label);font-weight:700;font-size:clamp(46px,8vw,72px);line-height:.95;letter-spacing:.02em;text-wrap:balance}
 .tools{display:flex;gap:8px;flex-wrap:wrap}
 .pill{border:1px solid var(--line);background:rgba(255,255,255,.9);border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(40,60,45,.06)}
-a.pill.lk-back{text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px}
+a.lk-back{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 13px;border-radius:999px;background:#fff;color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}
 .pill:hover{background:#fff;border-color:#cfd3cd}
 .pill svg{width:17px;height:17px}
 
@@ -117,12 +118,8 @@ canvas.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
 <div class="bg"></div>
 <div class="wrap">
   <header>
-    <div>
-      <div class="eyebrow">Wer ist dran? Was machen wir?</div>
-      <h1>Glücksrad</h1>
-    </div>
+    <a class="lk-back" href="../" title="Zurück zur Eulenkiste" aria-label="Zurück zur Eulenkiste"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a>
     <div class="tools">
-      <a class="pill lk-back" href="../">← Eulenkiste</a>
       <button class="pill" id="sound" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path id="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Ton an</span></button>
       <button class="pill" id="big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Grosses Rad</span></button>
     </div>
@@ -130,6 +127,7 @@ canvas.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
 
   <div class="grid">
     <section class="card wheel-card">
+      <div class="titel-mitte"><div class="eyebrow">Wer ist dran? Was machen wir?</div><h1>Glücksrad</h1></div>
       <div class="stage" id="stage">
         <svg class="pointer" id="pointer" viewBox="0 0 44 52"><path d="M22 50 4 14a18 18 0 1 1 36 0Z" fill="#e07a70" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><circle cx="22" cy="17" r="6" fill="#fff"/></svg>
         <canvas id="wheel" aria-label="Glücksrad"></canvas>
