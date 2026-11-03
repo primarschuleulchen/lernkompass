@@ -88,6 +88,7 @@ a{color:var(--link)}
 .karte p{color:var(--muted);margin-top:6px}
 .marken{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
 .marken span.aus{color:#8a938d;background:#f1f2ef;border-style:dashed}
+.marken span.mehr{background:transparent;border-color:transparent;color:var(--muted)}
 .marken span{font-size:16px;font-weight:400;padding:3px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
 .hinweis{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 8px;font-size:15px;font-weight:400;padding:4px 10px;border-radius:999px;border:1.5px solid var(--ink)}
 .hinweis.login{background:var(--sky-soft)}
@@ -103,7 +104,7 @@ a{color:var(--link)}
 .karte.leer .sym{background:#fff;width:110px;height:110px;border-width:2px}
 .karte.leer .sym svg{width:48px;height:48px}
 .karte.leer h3::after{content:none}
-.karte.wunsch{background:linear-gradient(180deg,#fffaf0,#fdf3dc);border-color:#ecd08a}
+.karte.wunsch{background:linear-gradient(180deg,#f3faff,#dcf0fd);border-color:#a9d2ef;justify-content:flex-start}
 .karte.wunsch .sym{background:#fff}
 .karte.wunsch .sym svg{width:64px;height:64px}
 .wunsch-knopf{margin-top:16px;padding:8px 18px;border-radius:999px;background:#fff;color:var(--link);box-shadow:var(--schatten);font-size:19px}
