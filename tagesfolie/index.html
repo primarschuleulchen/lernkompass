@@ -217,6 +217,7 @@ li:hover>.mv,.w.sel .t-list .mv{opacity:1}
 .dock button{border:0;background:none;border-radius:14px;padding:6px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:62px;font-size:12px;font-weight:700;color:var(--ink);flex:none}
 .dock button:hover{background:var(--leaf-soft)}
 .dock svg{width:28px;height:28px}
+.app.idle,.app.idle *{cursor:none!important}
 .dock button.locked{color:#9aa39d;cursor:help}
 .dock button.locked svg{opacity:.55}
 .dock button.locked:hover{background:#f1f2ef}
@@ -224,8 +225,9 @@ li:hover>.mv,.w.sel .t-list .mv{opacity:1}
 .kn-tip.show{opacity:1;pointer-events:auto}
 .kn-tip a{color:#bfe3fb;font-weight:800}
 a.lk-back{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 13px;border-radius:999px;background:#fff;color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}
-html{cursor:url(../feder.png) 2 30,auto;cursor:-webkit-image-set(url(../feder.png) 1x,url(../feder@2x.png) 2x) 2 30,auto;cursor:image-set(url(../feder.png) 1x,url(../feder@2x.png) 2x) 2 30,auto}
-a,button,label{cursor:url(../feder-gold.png) 2 30,pointer;cursor:-webkit-image-set(url(../feder-gold.png) 1x,url(../feder-gold@2x.png) 2x) 2 30,pointer;cursor:image-set(url(../feder-gold.png) 1x,url(../feder-gold@2x.png) 2x) 2 30,pointer}
+html,body,body *{cursor:url(../feder.png) 2 30,default}
+a,a *,button,button *,label,.klickbar,.klickbar *{cursor:url(../feder-gold.png) 2 30,pointer}
+input[type=text],input:not([type]),textarea,[contenteditable]{cursor:text}
 .dock .sep{width:1px;background:var(--line);margin:4px;flex:none}
 .app.idle .dock,.app.idle .top{opacity:0}
 .app.idle{cursor:none}

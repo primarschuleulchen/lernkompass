@@ -56,8 +56,7 @@ ZURUECK_CSS = ('a.lk-back{display:inline-flex;align-items:center;gap:6px;padding
                'color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}'
                'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}'
                # Feder als Mauszeiger, wie auf der Übersicht
-               '\nhtml{cursor:url(../feder.png) 2 30,auto;cursor:-webkit-image-set(url(../feder.png) 1x,url(../feder@2x.png) 2x) 2 30,auto;cursor:image-set(url(../feder.png) 1x,url(../feder@2x.png) 2x) 2 30,auto}'
-               '\na,button,label{cursor:url(../feder-gold.png) 2 30,pointer;cursor:-webkit-image-set(url(../feder-gold.png) 1x,url(../feder-gold@2x.png) 2x) 2 30,pointer;cursor:image-set(url(../feder-gold.png) 1x,url(../feder-gold@2x.png) 2x) 2 30,pointer}')
+               '\nhtml,body,body *{cursor:url(../feder.png) 2 30,default}\na,a *,button,button *,label,.klickbar,.klickbar *{cursor:url(../feder-gold.png) 2 30,pointer}\ninput[type=text],input:not([type]),textarea,[contenteditable]{cursor:text}')
 
 # ---------------------------------------------------------------- Glücksrad
 g = Bau('gluecksrad')
@@ -138,7 +137,8 @@ const KN_TIP = "Nur im Knobelnest – jetzt anmelden und freischalten";
 const KN_LINK = "";
 const KN_KLASSE = "Im Knobelnest ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = [''')
-t.rep('.dock .sep{', '''.dock button.locked{color:#9aa39d;cursor:help}
+t.rep('.dock .sep{', '''.app.idle,.app.idle *{cursor:none!important}
+.dock button.locked{color:#9aa39d;cursor:help}
 .dock button.locked svg{opacity:.55}
 .dock button.locked:hover{background:#f1f2ef}
 .kn-tip{position:fixed;left:0;top:0;z-index:300;max-width:250px;background:#1f2421;color:#fff;border-radius:12px;padding:9px 13px;font-size:13px;line-height:1.35;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .15s}
