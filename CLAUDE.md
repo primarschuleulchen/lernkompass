@@ -11,6 +11,9 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
 ## Aufbau
 - `index.html` Übersicht mit Tool-Karten (`.karte` + Farbe `blau|rosa|gruen|gelb`, Hinweis `login|bald|frei`).
 - Kleine Tools kommen als eigener Ordner dazu, z. B. `gluecksrad/index.html`, und nutzen `../style.css` bzw. die Schriften in `schriften/`.
+- Tools aus Originalen der Lehrerin: Original nach `werkstatt/originale/<tool>.html`, dann `python3 werkstatt/bauen.py` (ersetzt genau festgelegte Textstellen, bricht bei «Anzahl 0 statt 1» ab). Änderungen an Tools immer im Skript machen, nicht nur in der fertigen Datei.
+  - `gluecksrad/` und `tagesfolie/`: Schriften lokal (`schriften/schriften.css`), Knopf zurück zum Lernkompass, Tagesfolie ohne Konto/Datenbank.
+  - Tagesfolie: Arbeitsstand und Otterteich grau in der Leiste («Nur im Knobelnest – jetzt anmelden und freischalten»); Link zum Kaufen später in `KN_LINK`.
 - Cache-Bremse: `style.css?v=N` in den HTML-Dateien erhöhen, wenn sich `style.css` ändert.
 
 ## Veröffentlichen

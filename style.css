@@ -26,7 +26,7 @@ a{color:var(--link)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Kopf */
-.kopf{position:sticky;top:0;z-index:5;background:rgba(244,249,253,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.kopf{position:sticky;top:0;z-index:5;background:rgba(244,249,253,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .kopf .innen{display:flex;align-items:center;gap:16px;min-height:72px}
 .marke{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .marke img{width:52px;height:52px;flex:none;display:block}
@@ -41,9 +41,7 @@ a{color:var(--link)}
 /* Willkommen */
 .held{padding:56px 0 40px}
 .held .innen{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.augenbraue{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--sky-soft);color:#2f5f8f;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
 .held h1{font-size:clamp(44px,7vw,72px);margin:18px 0 18px}
-.held h1 .strich{background:linear-gradient(transparent 62%, #bfe3fb 62%, #bfe3fb 90%, transparent 90%);padding:0 4px}
 .lead{font-size:19px;color:var(--muted);max-width:34em}
 .knoepfe{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border-radius:14px;border:2px solid var(--ink);background:#fff;color:var(--ink);
@@ -77,6 +75,7 @@ a{color:var(--link)}
 .karte h3{font-size:32px}
 .karte p{color:var(--muted);margin-top:6px}
 .marken{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.marken span.aus{color:#8a938d;background:#f1f2ef;border-style:dashed}
 .marken span{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
 .hinweis{display:inline-flex;align-items:center;gap:6px;position:absolute;top:22px;right:22px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;border:1.5px solid var(--ink)}
 .hinweis.login{background:var(--sky-soft)}
