@@ -18,7 +18,8 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
 - Das Knobelnest heisst auf der Eulenkiste «Klassenkiste» (Bild `klassenkiste-bild.webp`). Das Portal selbst ist noch nicht umbenannt.
 - Logo (von der Lehrerin gezeichnet): `logo.webp` (Lehrerin mit Eule in der Holzkiste), `eulenkiste.webp` (nur Eule, rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
 - Karten: mittig, rundes Medaillon oben (`.bild-rund`, Bild wie `gluecksrad-bild.webp` oder Symbol mit Goldrand), Titel mit ✦ ✧ ✦ darunter. Kein «ohne Anmeldung»-Schild.
-- Mauszeiger: Feder (`feder.png`, beim Zeigen auf Links `feder-gold.png`; Quelle `feder.svg`).
+- Mauszeiger: Feder als Bild, das der Maus folgt (`feder.js`, Bilder `feder@2x.png` / `feder-gold@2x.png`, Quelle `feder.svg`). CSS `html.feder … {cursor:none}`; wo eine Seite einen eigenen Zeiger setzt (Textfeld, Verschieben), erscheint dieser. Reine CSS-Zeiger wurden in Chrome auf dem Mac zum Textstrich.
+- Karten alle gleich hoch (`grid-auto-rows:1fr`), darum Texte kurz halten.
 - Schrift: überall Patrick Hand (`--ui`), nur eine Stärke (font-weight 400). Schatten blau und weich (`--schatten`).
 - Cache-Bremse: `style.css?v=N` in den HTML-Dateien erhöhen, wenn sich `style.css` ändert.
 
