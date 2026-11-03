@@ -103,6 +103,11 @@ a{color:var(--link)}
 .karte.leer .sym{background:#fff;width:110px;height:110px;border-width:2px}
 .karte.leer .sym svg{width:48px;height:48px}
 .karte.leer h3::after{content:none}
+.karte.wunsch{background:linear-gradient(180deg,#fffaf0,#fdf3dc);border-color:#ecd08a}
+.karte.wunsch .sym{background:#fff}
+.karte.wunsch .sym svg{width:64px;height:64px}
+.wunsch-knopf{margin-top:16px;padding:8px 18px;border-radius:999px;background:#fff;color:var(--link);box-shadow:var(--schatten);font-size:19px}
+.karte.wunsch:hover .wunsch-knopf{background:var(--sky-soft)}
 
 /* Datenschutz-Kasten */
 .schutz{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
