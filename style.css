@@ -18,8 +18,9 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-html{cursor:url(feder.png) 2 30,auto;cursor:-webkit-image-set(url(feder.png) 1x,url(feder@2x.png) 2x) 2 30,auto;cursor:image-set(url(feder.png) 1x,url(feder@2x.png) 2x) 2 30,auto}
-a,button,.klickbar,label{cursor:url(feder-gold.png) 2 30,pointer;cursor:-webkit-image-set(url(feder-gold.png) 1x,url(feder-gold@2x.png) 2x) 2 30,pointer;cursor:image-set(url(feder-gold.png) 1x,url(feder-gold@2x.png) 2x) 2 30,pointer}
+html,body,body *{cursor:url(feder.png) 2 30,default}
+a,a *,button,button *,label,.klickbar,.klickbar *{cursor:url(feder-gold.png) 2 30,pointer}
+input[type=text],input:not([type]),textarea,[contenteditable]{cursor:text}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:20px;line-height:1.5}
 h1,h2,h3{font-family:var(--hand);font-weight:400;line-height:1.1;margin:0;letter-spacing:.01em}
 p{margin:0}
