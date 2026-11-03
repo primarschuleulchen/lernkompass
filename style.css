@@ -1,4 +1,4 @@
-/* Lernkompass – Gestaltung
+/* Eulenkiste – Gestaltung
    Farben und Schriften wie Tagesfolie und Hausaufgabenheft im Knobelnest,
    schwarze Strichsymbole und Stern-Trennlinie wie auf primarschuleulchen.com.
    Schriften liegen im Ordner schriften/ (nichts wird von Google geladen). */
@@ -52,7 +52,8 @@ a{color:var(--link)}
 .btn svg{width:20px;height:20px}
 .bild{position:relative;display:flex;justify-content:center}
 .bild .logo-gross{width:100%;max-width:420px;height:auto;display:block;filter:drop-shadow(0 10px 24px rgba(63,120,168,.18))}
-.bild .kompass{position:absolute;right:6%;bottom:4%;width:26%;max-width:110px;height:auto;filter:drop-shadow(3px 3px 0 #1f2421)}
+.bild .abzeichen{position:absolute;right:4%;bottom:2%;width:30%;max-width:124px;aspect-ratio:1;border-radius:50%;background:#fff;border:3px solid #1f2421;box-shadow:4px 4px 0 #1f2421;display:grid;place-items:center}
+.bild .abzeichen img{width:82%;height:auto;display:block}
 
 /* Trennlinie mit Stern (wie auf der Homepage) */
 .trenner{display:flex;align-items:center;gap:14px;margin:0 auto 30px;max-width:1080px;padding:0 20px;color:var(--ink)}
@@ -109,7 +110,7 @@ a{color:var(--link)}
   .held .innen{grid-template-columns:1fr;gap:10px}
   .bild{order:-1}
   .bild .logo-gross{max-width:260px}
-  .bild .kompass{right:calc(50% - 140px)}
+  .bild .abzeichen{right:calc(50% - 150px);width:96px}
   .schutz{grid-template-columns:1fr}
   .nav a:not(.aussen){display:none}
 }

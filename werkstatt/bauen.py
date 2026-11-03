@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Baut die Tools des Lernkompass aus den Originalen der Lehrerin.
+"""Baut die Tools der Eulenkiste aus den Originalen der Lehrerin.
 
   werkstatt/originale/gluecksrad.html  ->  gluecksrad/index.html
   werkstatt/originale/tagesfolie.html  ->  tagesfolie/index.html
@@ -41,12 +41,12 @@ class Bau:
         print(f'{ziel}: {"gleich" if alt == self.s else "neu geschrieben"}')
 
 
-# Gemeinsam: Schriften aus dem Lernkompass statt von Google (keine Daten an fremde Dienste)
+# Gemeinsam: Schriften aus der Eulenkiste statt von Google (keine Daten an fremde Dienste)
 def schriften(b):
     if '<link rel="preconnect" href="https://fonts.googleapis.com">' in b.s:
         b.rep('<link rel="preconnect" href="https://fonts.googleapis.com">\n', '')
     b.rex(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?[^"]*">',
-          '<link rel="stylesheet" href="../schriften/schriften.css">\n<meta name="referrer" content="no-referrer">')
+          '<link rel="stylesheet" href="../schriften/schriften.css">\n<meta name="referrer" content="no-referrer">\n<link rel="icon" type="image/svg+xml" href="../eulenkiste.svg">')
 
 
 ZURUECK_CSS = 'a.pill.lk-back{text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px}'
@@ -54,22 +54,22 @@ ZURUECK_CSS = 'a.pill.lk-back{text-decoration:none;color:inherit;display:inline-
 # ---------------------------------------------------------------- Glücksrad
 g = Bau('gluecksrad')
 schriften(g)
-# Knopf zurück zum Lernkompass, vor «Ton an»
+# Knopf zurück zur Eulenkiste, vor «Ton an»
 g.rep('<button class="pill" id="sound"',
-      '<a class="pill lk-back" href="../">← Lernkompass</a>\n      <button class="pill" id="sound"')
+      '<a class="pill lk-back" href="../">← Eulenkiste</a>\n      <button class="pill" id="sound"')
 g.rep('.pill:hover{', ZURUECK_CSS + '\n.pill:hover{')
 g.schreibe('gluecksrad/index.html')
 
 # ---------------------------------------------------------------- Tagesfolie
 t = Bau('tagesfolie')
 schriften(t)
-# Knopf zurück zum Lernkompass, ganz links in der oberen Leiste
+# Knopf zurück zur Eulenkiste, ganz links in der oberen Leiste
 t.rep('<div class="top">\n    <div class="tabs"',
-      '<div class="top">\n    <a class="pill lk-back" href="../" title="Zurück zum Lernkompass">←</a>\n    <div class="tabs"')
+      '<div class="top">\n    <a class="pill lk-back" href="../" title="Zurück zur Eulenkiste">←</a>\n    <div class="tabs"')
 
 # Kein Konto, keine Datenbank: alles bleibt auf diesem Gerät (auch wenn die Seite in Claude geöffnet würde)
 t.rep('    if (!window.claude?.use) return;\n',
-      '    return; // Lernkompass: kein Konto, keine Datenbank – alles bleibt auf diesem Gerät\n')
+      '    return; // Eulenkiste: kein Konto, keine Datenbank – alles bleibt auf diesem Gerät\n')
 
 # Arbeitsstand und Otterteich gibt es nur im Knobelnest: grau in der Leiste, mit Hinweis beim Darüberfahren oder Antippen
 STAND_ICON = ('<rect x="4" y="6" width="24" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/>'

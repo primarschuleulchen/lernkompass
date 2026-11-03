@@ -1,4 +1,4 @@
-# Lernkompass
+# Eulenkiste
 
 Übersicht über die digitalen Helfer von Primarschuleulchen: offen für alle, ohne Anmeldung und ohne Datenweitergabe.
 

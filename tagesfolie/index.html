@@ -3,6 +3,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="../schriften/schriften.css">
 <meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/svg+xml" href="../eulenkiste.svg">
 <style>
 /* Layout: eine Klassen-Tafel über den ganzen Bildschirm. Oben deine gespeicherten Bildschirme, unten die Widget-Leiste, dazwischen frei verschiebbare Widgets auf Aquarellpapier oder deinem eigenen Bild.
    Bewusst nur ein helles Erscheinungsbild: so sieht es am Beamer gleich aus wie deine Folien. */
@@ -280,7 +281,7 @@ a.pill.lk-back{text-decoration:none;color:inherit;display:inline-flex;align-item
 <div class="app" id="app" lang="de">
   <div class="bg" id="bg"></div>
   <div class="top">
-    <a class="pill lk-back" href="../" title="Zurück zum Lernkompass">←</a>
+    <a class="pill lk-back" href="../" title="Zurück zur Eulenkiste">←</a>
     <div class="tabs" id="tabs" aria-label="Meine Bildschirme"></div>
     <div class="spacer"></div>
     <span class="status" id="status">Wird geladen …</span>
@@ -1297,7 +1298,7 @@ setStatus("Gespeichert auf diesem Gerät");
 
 (async () => {
   try {
-    return; // Lernkompass: kein Konto, keine Datenbank – alles bleibt auf diesem Gerät
+    return; // Eulenkiste: kein Konto, keine Datenbank – alles bleibt auf diesem Gerät
     const [db, user, as] = await Promise.all([window.claude.use("db"), window.claude.use("user"), window.claude.use("assets")]);
     assets = as;
     if (!db || !user) return;

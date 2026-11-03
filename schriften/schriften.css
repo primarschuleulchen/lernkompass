@@ -1,4 +1,4 @@
-/* Alle Schriften des Lernkompass, lokal abgelegt (SIL Open Font License). Nur «latin»-Zeichen, das reicht für Deutsch und Französisch. */
+/* Alle Schriften der Eulenkiste, lokal abgelegt (SIL Open Font License). Nur «latin»-Zeichen, das reicht für Deutsch und Französisch. */
 @font-face{font-family:"Nunito";src:url(nunito.woff2) format("woff2");font-weight:400 800;font-display:swap}
 @font-face{font-family:"Patrick Hand";src:url(patrick-hand.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Amatic SC";src:url(amatic-sc-700.woff2) format("woff2");font-weight:700;font-display:swap}
