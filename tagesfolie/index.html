@@ -495,6 +495,7 @@ const TYPES = {
 const KN_NUR = { stand: ["Arbeitsstand", `<rect x="4" y="6" width="24" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M4 13h24M12 6v20M20 6v20" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="19" r="2" fill="currentColor"/><circle cx="24" cy="22" r="2" fill="currentColor"/>`], otter: ["Otterteich", `<ellipse cx="16" cy="22" rx="12" ry="5" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="16" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="11" cy="7.5" r="1.8" fill="currentColor"/><circle cx="21" cy="7.5" r="1.8" fill="currentColor"/><circle cx="16" cy="13.5" r="1.3" fill="currentColor"/>`] };
 const KN_TIP = "Nur im Knobelnest – jetzt anmelden und freischalten";
 const KN_LINK = "";
+const KN_KLASSE = "Im Knobelnest ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = ["title","date","clock","timer","|","list","check","plan","material","note","image","|","symbol","traffic","random","groups"];
 
 // ---------- Startdaten ----------
@@ -518,14 +519,14 @@ function defaults(){
         W("symbol", 78, 34, 15, 26, { key: "fluester" }),
         W("clock", 76, 64, 19, 16)
       ]},
-      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
-        W("title", 24, 0, 42, 18, { text: "10 – 12 Uhr", color: TITLE_COLORS[2] }),
-        W("date", 76, 1, 15, 26),
-        W("list", 4, 24, 28, 40, { heading: "Deutsch", items: mkItems(["Lesekartei","Arbeitsheft S. 24"]) }),
-        W("list", 35, 24, 28, 40, { heading: "Mathe", items: mkItems(["Plusaufgaben bis 100","Rechenkartei"]) }),
-        W("material", 4, 60, 40, 30, { keys: ["bleistift","radiergummi","lineal","heft"] }),
-        W("timer", 68, 34, 28, 28, { total: 1200, left: 1200 }),
-        W("traffic", 86, 66, 7, 26)
+      { id: "s-lektion", name: "Halbklasse", bg: "", widgets: [
+        W("title", 26, 4, 42, 18, { text: "Halbklasse" }),
+        W("list", 5, 28, 29, 22, { heading: "Deutsch", items: mkItems(["Lesekartei","Arbeitsheft S. 24"]) }),
+        W("list", 36, 28, 31, 22, { heading: "Mathe", items: mkItems(["Plusaufgaben bis 100","Rechenkartei"]) }),
+        W("date", 71, 26, 15, 26),
+        W("material", 5, 61, 39, 27, { keys: ["bleistift","radiergummi","lineal","heft"] }),
+        W("timer", 46.5, 62, 27.5, 22.5, { total: 1200, left: 1200 }),
+        W("traffic", 77, 63, 7, 21)
       ]}
     ]
   };
@@ -738,9 +739,9 @@ $("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></span>` : `
 (() => {
   const tip = document.createElement("div"); tip.className = "kn-tip"; tip.setAttribute("role", "tooltip"); APP.appendChild(tip);
   let zu = 0;
-  const zeige = b => {
+  const zeige = (b, text) => {
     clearTimeout(zu);
-    tip.innerHTML = `<b>🔒 ${esc(KN_TIP)}</b>` + (KN_LINK ? ` <a href="${esc(KN_LINK)}" target="_blank" rel="noopener">Mehr erfahren</a>` : "");
+    tip.innerHTML = text ? `<b>💡 ${esc(text)}</b>` : `<b>🔒 ${esc(KN_TIP)}</b>` + (KN_LINK ? ` <a href="${esc(KN_LINK)}" target="_blank" rel="noopener">Mehr erfahren</a>` : "");
     tip.classList.add("show");
     const r = b.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
     tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + "px";
@@ -753,6 +754,11 @@ $("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></span>` : `
     b.addEventListener("focus", () => zeige(b));
     b.addEventListener("blur", weg);
     b.addEventListener("click", () => { zeige(b); clearTimeout(zu); zu = setTimeout(() => tip.classList.remove("show"), 3500); });
+  });
+  // Zufallsname und Gruppen funktionieren hier auch, im Knobelnest gibt es aber mehr: Hinweis beim Darüberfahren
+  $("#dock").querySelectorAll('[data-add="random"],[data-add="groups"]').forEach(b => {
+    b.addEventListener("mouseenter", () => zeige(b, KN_KLASSE));
+    b.addEventListener("mouseleave", weg);
   });
   tip.addEventListener("mouseenter", () => clearTimeout(zu));
   tip.addEventListener("mouseleave", weg);
