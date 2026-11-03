@@ -129,9 +129,6 @@ a{color:var(--link)}
 .fuss-marke b{display:block;font-size:34px;line-height:1;font-weight:400}
 .fuss-marke em{font-style:normal;color:#c4952f}
 .fuss-marke small{display:block;font-size:18px;color:var(--muted)}
-.fuss-nav{display:flex;flex-wrap:wrap;gap:4px 8px}
-.fuss-nav a{padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);font-size:20px}
-.fuss-nav a:hover{background:#fff;box-shadow:var(--schatten)}
 .insta{display:flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;border-radius:999px;background:#fff;text-decoration:none;color:var(--ink);box-shadow:var(--schatten);border:1.5px solid #f1e2b8;transition:transform .15s, box-shadow .15s}
 .insta:hover{transform:translateY(-2px);box-shadow:var(--schatten-hoch)}
 .insta-sym{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9fd0f3 0%,#5f97c8 55%,#3f78a8 100%);box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--gold)}
