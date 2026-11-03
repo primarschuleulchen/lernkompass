@@ -133,9 +133,9 @@ t.rep('''$("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></s
 t.rep('const DOCK = [',
       '''// Nur im Knobelnest erhältlich (grau in der Leiste). KN_LINK: später die Seite auf primarschuleulchen.com, wo man den Zugang bekommt
 const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Otterteich", `''' + OTTER_ICON + '''`] };
-const KN_TIP = "Nur im Knobelnest – jetzt anmelden und freischalten";
+const KN_TIP = "Nur in der Klassenkiste – jetzt anmelden und freischalten";
 const KN_LINK = "";
-const KN_KLASSE = "Im Knobelnest ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
+const KN_KLASSE = "In der Klassenkiste ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = [''')
 t.rep('.dock .sep{', '''.app.idle,.app.idle *{cursor:none!important}
 .dock button.locked{color:#9aa39d;cursor:help}
