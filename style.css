@@ -84,7 +84,7 @@ a{color:var(--link)}
 .karte.klickbar:hover .bild-rund{transform:rotate(-4deg) scale(1.04)}
 .karte.blau .sym{background:var(--sky-soft)} .karte.rosa .sym{background:var(--rose-soft)} .karte.gruen .sym{background:var(--leaf-soft)} .karte.gelb .sym{background:var(--sun-soft)}
 .karte h3{font-size:36px;position:relative;padding-bottom:10px}
-.karte h3::after{content:"✦ ✧ ✦";display:block;font-size:12px;letter-spacing:.3em;color:var(--gold);margin-top:2px}
+.karte h3::after{content:"✦ ✧ ✦";display:block;font-size:12px;line-height:1;letter-spacing:.3em;color:var(--gold);margin-top:12px}
 .karte p{color:var(--muted);margin-top:6px}
 .marken{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
 .marken span.aus{color:#8a938d;background:#f1f2ef;border-style:dashed}
