@@ -46,7 +46,7 @@ def schriften(b):
     if '<link rel="preconnect" href="https://fonts.googleapis.com">' in b.s:
         b.rep('<link rel="preconnect" href="https://fonts.googleapis.com">\n', '')
     b.rex(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?[^"]*">',
-          '<link rel="stylesheet" href="../schriften/schriften.css">\n<meta name="referrer" content="no-referrer">\n<link rel="icon" type="image/svg+xml" href="../eulenkiste.svg">')
+          '<link rel="stylesheet" href="../schriften/schriften.css">\n<meta name="referrer" content="no-referrer">\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
 
 
 ZURUECK_CSS = 'a.pill.lk-back{text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px}'

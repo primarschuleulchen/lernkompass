@@ -29,7 +29,7 @@ a{color:var(--link)}
 .kopf{position:sticky;top:0;z-index:5;background:rgba(244,249,253,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .kopf .innen{display:flex;align-items:center;gap:16px;min-height:72px}
 .marke{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-.marke img{width:52px;height:52px;flex:none;display:block}
+.marke img{width:52px;height:52px;flex:none;display:block;border-radius:50%;border:2px solid #1f2421}
 .marke b{font-family:var(--hand);font-weight:400;font-size:30px;line-height:1}
 .marke small{display:block;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em}
 .nav{margin-left:auto;display:flex;align-items:center;gap:6px}
@@ -52,8 +52,6 @@ a{color:var(--link)}
 .btn svg{width:20px;height:20px}
 .bild{position:relative;display:flex;justify-content:center}
 .bild .logo-gross{width:100%;max-width:420px;height:auto;display:block;filter:drop-shadow(0 10px 24px rgba(63,120,168,.18))}
-.bild .abzeichen{position:absolute;right:4%;bottom:2%;width:30%;max-width:124px;aspect-ratio:1;border-radius:50%;background:#fff;border:3px solid #1f2421;box-shadow:4px 4px 0 #1f2421;display:grid;place-items:center}
-.bild .abzeichen img{width:82%;height:auto;display:block}
 
 /* Trennlinie mit Stern (wie auf der Homepage) */
 .trenner{display:flex;align-items:center;gap:14px;margin:0 auto 30px;max-width:1080px;padding:0 20px;color:var(--ink)}
@@ -110,8 +108,7 @@ a{color:var(--link)}
   .held .innen{grid-template-columns:1fr;gap:10px}
   .bild{order:-1}
   .bild .logo-gross{max-width:260px}
-  .bild .abzeichen{right:calc(50% - 150px);width:96px}
-  .schutz{grid-template-columns:1fr}
+    .schutz{grid-template-columns:1fr}
   .nav a:not(.aussen){display:none}
 }
 @media (max-width:420px){

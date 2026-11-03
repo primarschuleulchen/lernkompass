@@ -14,7 +14,8 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
 - Tools aus Originalen der Lehrerin: Original nach `werkstatt/originale/<tool>.html`, dann `python3 werkstatt/bauen.py` (ersetzt genau festgelegte Textstellen, bricht bei «Anzahl 0 statt 1» ab). Änderungen an Tools immer im Skript machen, nicht nur in der fertigen Datei.
   - `gluecksrad/` und `tagesfolie/`: Schriften lokal (`schriften/schriften.css`), Knopf zurück zur Eulenkiste, Tagesfolie ohne Konto/Datenbank.
   - Tagesfolie: Arbeitsstand und Otterteich grau in der Leiste («Nur im Knobelnest – jetzt anmelden und freischalten»); Link zum Kaufen später in `KN_LINK`.
+- Logo: `logo.webp` (Lehrerin mit Eule in der Kiste, gross), `eulenkiste.webp` (rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
 - Cache-Bremse: `style.css?v=N` in den HTML-Dateien erhöhen, wenn sich `style.css` ändert.
 
 ## Veröffentlichen
-Auf dem Arbeitszweig committen und pushen. «Online stellen» = Pull Request nach `main`, die Lehrerin führt zusammen.
+Auf dem Arbeitszweig committen und pushen, dann Pull Request nach `main` und **selbst zusammenführen**: Die Lehrerin hat erlaubt, Änderungen immer direkt online zu stellen. Nach dem Zusammenführen den Arbeitszweig neu auf `main` aufsetzen.
