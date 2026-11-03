@@ -1,52 +1,48 @@
-/* Eulenkiste – Feder als Mauszeiger.
-   Ein kleines Bild folgt der Maus. Das ist zuverlässiger als ein reiner CSS-Mauszeiger,
-   der in Chrome auf dem Mac manchmal zum Textstrich wurde.
-   Nur mit Maus oder Trackpad; auf Handy, Tablet und mit dem Smartboard-Stift bleibt alles normal.
-   Wo eine Seite bewusst einen eigenen Zeiger will (Textfeld, Verschieben, Grösse ändern),
-   erscheint dieser statt der Feder. */
+/* Eulenkiste – Feder als Glitzer.
+   Der normale Mauszeiger bleibt. Daneben schwebt eine kleine Feder sanft hinterher
+   und verblasst, sobald die Maus stillsteht. Über Knöpfen und Karten wird sie golden.
+   Nur mit Maus oder Trackpad, nicht bei «Bewegung reduzieren» und nicht auf Touch-Geräten. */
 (function () {
   'use strict';
   if (!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var skript = document.currentScript;
   var basis = skript && skript.src ? skript.src.replace(/feder\.js(\?.*)?$/, '') : '';
   var KLICKBAR = 'a,button,label,select,summary,.klickbar,[role=button],[data-add],[data-locked]';
-  var html = document.documentElement;
+  var normal = basis + 'feder@2x.png', gold = basis + 'feder-gold@2x.png';
+  new Image().src = gold;
 
   var bild = document.createElement('img');
   bild.alt = '';
   bild.setAttribute('aria-hidden', 'true');
-  bild.style.cssText = 'position:fixed;left:0;top:0;width:32px;height:32px;margin:0;padding:0;border:0;' +
-    'pointer-events:none;z-index:2147483647;display:none;will-change:transform';
-  var normal = basis + 'feder@2x.png', gold = basis + 'feder-gold@2x.png';
-  new Image().src = gold;
   bild.src = normal;
-
-  function einbauen() {
-    html.classList.add('feder');
-    (document.body || html).appendChild(bild);
-  }
+  bild.style.cssText = 'position:fixed;left:0;top:0;width:26px;height:26px;margin:0;padding:0;border:0;' +
+    'pointer-events:none;z-index:2147483647;opacity:0;transition:opacity .45s ease;will-change:transform,opacity';
+  function einbauen() { (document.body || document.documentElement).appendChild(bild); }
   if (document.body) einbauen(); else document.addEventListener('DOMContentLoaded', einbauen);
 
-  var x = 0, y = 0, ziel = null, warten = false, istGold = false;
-  function zeichne() {
-    warten = false;
-    var zeigen = false;
-    if (ziel && ziel.nodeType === 1 && !ziel.closest('.app.idle, body.idle')) {
-      // Nur wo kein eigener Zeiger gewünscht ist, die Feder zeigen
-      zeigen = getComputedStyle(ziel).cursor === 'none';
-    }
-    if (!zeigen) { bild.style.display = 'none'; return; }
-    var g = !!ziel.closest(KLICKBAR);
-    if (g !== istGold) { istGold = g; bild.src = g ? gold : normal; }
-    bild.style.transform = 'translate(' + (x - 2) + 'px,' + (y - 30) + 'px)';
-    bild.style.display = 'block';
+  var zx = 0, zy = 0, fx = 0, fy = 0, laeuft = false, uhr = 0, istGold = false, erst = true;
+  function schritt() {
+    fx += (zx - fx) * 0.18;
+    fy += (zy - fy) * 0.18;
+    // etwas rechts unterhalb vom Mauszeiger, leicht schaukelnd
+    var w = Math.sin(Date.now() / 260) * 6;
+    bild.style.transform = 'translate(' + (fx + 16) + 'px,' + (fy + 4) + 'px) rotate(' + w + 'deg)';
+    if (Math.abs(zx - fx) + Math.abs(zy - fy) > 0.3 || bild.style.opacity !== '0') requestAnimationFrame(schritt);
+    else laeuft = false;
   }
   document.addEventListener('pointermove', function (e) {
-    if (e.pointerType && e.pointerType !== 'mouse') { html.classList.remove('feder'); bild.style.display = 'none'; return; }
-    html.classList.add('feder');
-    x = e.clientX; y = e.clientY; ziel = e.target;
-    if (!warten) { warten = true; requestAnimationFrame(zeichne); }
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    zx = e.clientX; zy = e.clientY;
+    if (erst) { fx = zx; fy = zy; erst = false; }
+    var t = e.target, ruhig = t && t.closest && t.closest('.app.idle, body.idle');
+    var g = !!(t && t.closest && t.closest(KLICKBAR));
+    if (g !== istGold) { istGold = g; bild.src = g ? gold : normal; }
+    bild.style.opacity = ruhig ? '0' : '1';
+    clearTimeout(uhr);
+    uhr = setTimeout(function () { bild.style.opacity = '0'; }, 650);
+    if (!laeuft) { laeuft = true; requestAnimationFrame(schritt); }
   }, { passive: true });
-  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) bild.style.display = 'none'; });
-  window.addEventListener('blur', function () { bild.style.display = 'none'; });
+  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) bild.style.opacity = '0'; });
+  window.addEventListener('blur', function () { bild.style.opacity = '0'; });
 })();

@@ -18,9 +18,7 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-/* Feder als Mauszeiger: feder.js zeigt ein Bild, das der Maus folgt */
-html.feder,html.feder body,html.feder body *{cursor:none}
-html.feder input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]),html.feder textarea,html.feder [contenteditable]{cursor:text}
+/* Feder: feder.js lässt eine kleine Feder neben dem normalen Mauszeiger schweben */
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:20px;line-height:1.5}
 h1,h2,h3{font-family:var(--hand);font-weight:400;line-height:1.1;margin:0;letter-spacing:.01em}
 p{margin:0}
