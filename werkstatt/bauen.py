@@ -55,7 +55,9 @@ ZURUECK = ('<a class="lk-back" href="../" title="Zurück zur Eulenkiste" aria-la
            '<script src="../feder.js"></script>')
 ZURUECK_CSS = ('a.lk-back{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 13px;border-radius:999px;background:#fff;'
                'color:#1f2421;text-decoration:none;font:700 19px/1 system-ui,sans-serif;box-shadow:0 4px 14px rgba(63,120,168,.2);flex:none}'
-               'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}')
+               'a.lk-back:hover{box-shadow:0 6px 18px rgba(63,120,168,.3)}a.lk-back img{width:36px;height:36px;display:block}'
+               # Feder als Mauszeiger, solange sich die Maus bewegt (feder.js)
+               '\nhtml.feder,html.feder body,html.feder body *{cursor:none}\nhtml.feder input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]),html.feder textarea,html.feder [contenteditable]{cursor:text}')
 
 # ---------------------------------------------------------------- Glücksrad
 g = Bau('gluecksrad')
