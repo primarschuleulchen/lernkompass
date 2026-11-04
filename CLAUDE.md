@@ -15,6 +15,8 @@ Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Sch
   - `gluecksrad/` und `tagesfolie/`: Schriften lokal (`schriften/schriften.css`), Knopf oben links zurück zur Eulenkiste (Pfeil + Eulen-Logo, `ZURUECK` in bauen.py), Tagesfolie ohne Konto/Datenbank.
   - `otterteich/` = Karte «Lautstärkenregler» (Bild `lautstaerke-bild.webp`). Original hat eigene strenge Sicherheitsregeln (CSP); `img-src` erlaubt zusätzlich `'self'` für das Logo. Die Claude-Hülle am Dateianfang wird entfernt.
   - Tagesfolie: Arbeitsstand und Otterteich grau in der Leiste («Nur in der Klassenkiste – jetzt anmelden und freischalten»); Link zum Kaufen später in `KN_LINK`.
+- `pinnwand/` = Klassen-Pinnwand (Bild `pinnwand-bild.webp`). Ohne Konto: kleiner Speicher-Ersatz für `claude.use('db')` im Browser (`localStorage` «eulenkiste-pinnwand»), Hinweis «Kinder an eigenen Geräten: nur in der Klassenkiste». Dieselbe Pinnwand ist in der Klassenkiste (Repo knobelnest, `werkstatt/einbau/pinnwand/`, Korrekturen in `pin_fixes.py`).
+- Die Lehrerin will, dass Änderungen an Tools, die es auch in der Klassenkiste gibt (Tagesfolie, Glücksrad, Lautstärkeregler, Pinnwand), immer in beiden Repos gemacht werden.
 - Das Knobelnest heisst auf der Eulenkiste «Klassenkiste» (Bild `klassenkiste-bild.webp`). Das Portal selbst ist noch nicht umbenannt.
 - Logo (von der Lehrerin gezeichnet): `logo.webp` (Lehrerin mit Eule in der Holzkiste), `eulenkiste.webp` (nur Eule, rund, Kopf), `eulenkiste-icon.png` (Browser-Tab).
 - Karten: mittig, rundes Medaillon oben (`.bild-rund`, Bild wie `gluecksrad-bild.webp` oder Symbol mit Goldrand), Titel mit ✦ ✧ ✦ darunter. Kein «ohne Anmeldung»-Schild.
