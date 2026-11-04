@@ -249,3 +249,13 @@ p.rep('.note .txt{font-family:var(--hand);font-size:1.5rem;', '.note .txt{font-f
 p.rep('#app[data-font="klar"] .note .txt{font-size:1.2rem}', '#app[data-font="klar"] .note .txt{font-size:1.55rem}')
 p.rep('.present-on .note .txt{font-size:2rem}', '.present-on .note .txt{font-size:2.5rem}')
 p.schreibe('pinnwand/index.html')
+
+# ---------------------------------------------------------------- Wort des Tages (Lernspiel)
+w = Bau('wort-des-tages')
+# Schrift und Eule sind im Original eingebaut. Die Eule oben links wird zum Knopf zurück zur Eulenkiste.
+w.rex(r'<header class="kopf">\n    <img src="data:image/webp;base64,[^"]+"[^>]*>',
+      '<header class="kopf">\n    ' + ZURUECK)
+w.rep('<title>Wort des Tages</title>', '<title>Wort des Tages</title>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
+w.rep('.kopf img{width:46px;height:46px;flex:none}', ZURUECK_CSS + '\n.kopf .lk-back{box-shadow:none;background:var(--sky-soft)}')
+w.rep('.kopf img{width:38px;height:38px}', '.kopf .lk-back img{width:30px;height:30px}')
+w.schreibe('wort-des-tages/index.html')
