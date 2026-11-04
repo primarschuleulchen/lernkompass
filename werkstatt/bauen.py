@@ -3,6 +3,8 @@
 
   werkstatt/originale/gluecksrad.html  ->  gluecksrad/index.html
   werkstatt/originale/tagesfolie.html  ->  tagesfolie/index.html
+  werkstatt/originale/otterteich.html  ->  otterteich/index.html
+  werkstatt/originale/pinnwand.html    ->  pinnwand/index.html
 
 Neue Version eines Tools: Datei in werkstatt/originale/ ersetzen und
   python3 werkstatt/bauen.py
@@ -179,3 +181,71 @@ o.rep('<canvas id="cv" aria-label="Animierter Otterteich"></canvas>',
 o.rep('.pill{background:var(--pill);', ZURUECK_CSS + '\n.ot-back{position:fixed;z-index:35;top:max(14px,env(safe-area-inset-top,0px));left:max(14px,env(safe-area-inset-left,0px))}'
       '\n.count{margin-top:56px}\n.pill{background:var(--pill);')
 o.schreibe('otterteich/index.html')
+
+# ---------------------------------------------------------------- Pinnwand (Klassen-Pinnwand)
+# Dieselbe Pinnwand gibt es in der Klassenkiste (Repo knobelnest, werkstatt/einbau/pinnwand/). Die Korrekturen
+# unter «Gemeinsam mit der Klassenkiste» stehen dort in pin_fixes.py: bei Änderungen beide anpassen.
+p = Bau('pinnwand')
+schriften(p)
+p.rep('<title>Klassen-Pinnwand</title>', '<title>Klassen-Pinnwand – Eulenkiste</title>')
+# Knopf zurück zur Eulenkiste, links vom Titel
+p.rep('    <h1>Klassen-Pinnwand</h1>', '    ' + ZURUECK + '\n    <h1>Klassen-Pinnwand</h1>')
+# Kein Konto, keine Datenbank: die Pinnwand speichert alles im Browser dieses Geräts (localStorage)
+p.rep('/* ---------- Start ---------- */', """/* ---------- Eulenkiste: Speicher nur auf diesem Gerät ---------- */
+if (!window.claude || !window.claude.use) {
+  const KEY = "eulenkiste-pinnwand";
+  let D; try { D = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch { D = {}; }
+  for (const c of ["boards", "ideas", "settings", "votes"]) if (!D[c] || typeof D[c] !== "object") D[c] = {};
+  const subs = new Set(), copy = v => JSON.parse(JSON.stringify(v));
+  const snapColl = c => ({ docs: Object.keys(D[c]).map(id => ({ id, exists: true, data: () => copy(D[c][id]) })) });
+  const snapDoc = (c, id) => ({ id, exists: D[c][id] != null, data: () => D[c][id] == null ? null : copy(D[c][id]) });
+  const save = () => {
+    try { localStorage.setItem(KEY, JSON.stringify(D)); }
+    catch { const e = new Error("voll"); e.code = "quota_exceeded"; throw e; }
+    setTimeout(() => subs.forEach(f => f()), 0);
+  };
+  const watch = f => { subs.add(f); setTimeout(f, 0); return () => subs.delete(f); };
+  const merge = (a, b) => { const r = copy(a || {}); for (const k in b) r[k] = b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && r[k] && typeof r[k] === "object" && !Array.isArray(r[k]) ? merge(r[k], b[k]) : b[k]; return r; };
+  const db = {
+    collection: c => ({
+      add: async obj => { const id = "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); D[c][id] = copy(obj); save(); return { id }; },
+      onSnapshot: cb => watch(() => cb(snapColl(c)))
+    }),
+    doc: path => { const [c, id] = String(path).split("/"); return {
+      get: async () => snapDoc(c, id),
+      set: async obj => { D[c][id] = copy(obj); save(); },
+      update: async patch => { D[c][id] = merge(D[c][id], patch); save(); },
+      delete: async () => { delete D[c][id]; save(); },
+      onSnapshot: cb => watch(() => cb(snapDoc(c, id)))
+    }; }
+  };
+  window.claude = { use: async n => n === "db" ? db : n === "user" ? { me: async () => ({ id: "lp", isOwner: true, canEdit: true }) } : null };
+}
+/* ---------- Start ---------- */""")
+p.rep('st.lastElementChild.textContent = S.live ? "Live" : "Vorschau – wird nicht gespeichert";',
+      'st.lastElementChild.textContent = S.live ? "Auf diesem Gerät gespeichert" : "Wird geladen …";')
+# Hinweis: Kinder an eigenen Geräten gibt es nur in der Klassenkiste
+p.rep('    <span class="status" id="status"><i></i><span>Verbinde …</span></span>',
+      '    <span class="status" id="status"><i></i><span>Verbinde …</span></span>\n'
+      '    <a class="kk-hint" href="https://primarschuleulchen.github.io/knobelnest/" target="_blank" rel="noopener" title="In der Klassenkiste schreiben und stimmen die Kinder an ihren eigenen Geräten mit.">🔒 Kinder an eigenen Geräten: nur in der Klassenkiste</a>')
+p.rep('/* Erweiterungen */', '/* Erweiterungen */\n' + ZURUECK_CSS + '\nheader.top a.lk-back{margin-right:4px}'
+      '\n.kk-hint{font-size:12.5px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.75);padding:3px 10px;border-radius:999px;text-decoration:none}'
+      '\n.kk-hint:hover{color:var(--ink)}\n@media (max-width:700px){.kk-hint{display:none}}')
+
+# Gemeinsam mit der Klassenkiste (pin_fixes.py):
+# a) Beim Tippen auf eine Einstellung springt die Seite nicht mehr nach oben:
+#    vor dem Neuzeichnen die Scroll-Positionen (Seite und Seitenleiste) merken und danach wiederherstellen.
+p.rep('''  $("#app").innerHTML = !S.board ?''', '''  const scrSame = window.__pwScr === S.board + "|" + S.view; window.__pwScr = S.board + "|" + S.view;
+  const scrPath = el => { const p = []; while (el && el.id !== "app") { p.unshift([...el.parentNode.children].indexOf(el)); el = el.parentNode; } return p; };
+  const scrKeep = [], scrY = scrollY; if (scrSame) document.querySelectorAll("#app *").forEach(el => { if (el.scrollTop > 0) scrKeep.push([scrPath(el), el.scrollTop]); });
+  $("#app").innerHTML = !S.board ?''')
+p.rep('''  for (const k in keep) { const el = document.getElementById(k); if (el) el.value = keep[k]; }''', '''  for (const k in keep) { const el = document.getElementById(k); if (el) el.value = keep[k]; }
+  if (scrSame) {
+    for (const [p, t] of scrKeep) { let el = $("#app"); for (const i of p) el = el && el.children[i]; if (el) el.scrollTop = t; }
+    if (Math.abs(scrollY - scrY) > 1) scrollTo(0, scrY);
+  }''')
+# b) Grössere Schrift auf den Zetteln
+p.rep('.note .txt{font-family:var(--hand);font-size:1.5rem;', '.note .txt{font-family:var(--hand);font-size:1.9rem;')
+p.rep('#app[data-font="klar"] .note .txt{font-size:1.2rem}', '#app[data-font="klar"] .note .txt{font-size:1.55rem}')
+p.rep('.present-on .note .txt{font-size:2rem}', '.present-on .note .txt{font-size:2.5rem}')
+p.schreibe('pinnwand/index.html')
