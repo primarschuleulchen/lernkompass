@@ -24,6 +24,7 @@ p{margin:0}
 a{color:var(--link)}
 :focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px;border-radius:6px}
 .innen{max-width:1120px;margin:0 auto;padding:0 20px}
+section[id]{scroll-margin-top:96px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Kopf */
@@ -54,6 +55,8 @@ a{color:var(--link)}
 .btn:hover{transform:translateY(-2px);box-shadow:var(--schatten-hoch)}
 .btn:active{transform:translateY(1px);box-shadow:var(--schatten)}
 .btn.voll{background:var(--sky-soft)}
+.btn.voll.gold{background:var(--sun-soft)}
+.karte .sym svg.kacheln{width:118px;height:118px}
 .btn svg{width:20px;height:20px}
 .bild{position:relative;display:flex;justify-content:center}
 .bild .logo-gross{width:100%;max-width:420px;height:auto;display:block;filter:drop-shadow(0 10px 24px rgba(63,120,168,.18))}
