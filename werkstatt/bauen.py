@@ -281,8 +281,8 @@ for name in KNOBELSPIELE:
     # Startseite des Spiels: oben links der Knopf zurück zur Knobelkiste
     k.rep("""'<div class="top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
           """'<div class="top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
-    if name == 'kleiderschrank':
-        # Der Kleiderschrank hat eine eigene Startseite (Stufen-Pfad «pf-top»): dort auch der Zurück-Knopf
+    if name in ('kleiderschrank', 'owl-town'):
+        # Kleiderschrank und Owl Town haben eine eigene Startseite (Stufen-Pfad «pf-top»): dort auch der Zurück-Knopf
         k.rep("""'<div class="top pf-top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
               """'<div class="top pf-top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
         k.rep('.pf-top .pill{pointer-events:auto}', '.pf-top .pill,.pf-top .lk-back{pointer-events:auto}')
