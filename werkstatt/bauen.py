@@ -266,10 +266,13 @@ w.schreibe('wort-des-tages/index.html')
 # Hier laufen sie ohne Klassenkiste: Stand (Ton, Rekorde) nur im localStorage des Geräts, keine Sterne.
 KNOBELSPIELE = ['rechen-rakete', 'uhr-lesen', 'kiosk', 'wort-raten', 'der-die-das', 'silben-puzzle',
                 'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg']
-ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../#lernspiele"')
+# Zurück führt in die Knobelkiste (knobelkiste/index.html), zum Fach des Spiels
+FACH = {'rechen-rakete': 'mathematik', 'uhr-lesen': 'mathematik', 'kiosk': 'mathematik', 'wort-raten': 'deutsch', 'der-die-das': 'deutsch',
+        'silben-puzzle': 'deutsch', 'bilderraetsel': 'knobeln', 'eulen-weg': 'knobeln', 'bilder-sudoku': 'knobeln', 'wasser-weg': 'knobeln'}
 for name in KNOBELSPIELE:
+    ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../knobelkiste/#' + FACH[name] + '"').replace('Zurück zur Eulenkiste', 'Zurück zur Knobelkiste')
     k = Bau('spiele/' + name)
-    # Startseite des Spiels: oben links der Knopf zurück zu den Lernspielen der Eulenkiste
+    # Startseite des Spiels: oben links der Knopf zurück zur Knobelkiste
     k.rep("""'<div class="top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
           """'<div class="top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
     k.rep('</style>', ZURUECK_CSS + '</style>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">\n<meta name="referrer" content="no-referrer">')
