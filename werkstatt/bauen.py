@@ -265,15 +265,30 @@ w.schreibe('wort-des-tages/index.html')
 # Neue Version: die Datei aus knobelspiele/ nach werkstatt/originale/spiele/ kopieren und dieses Skript laufen lassen.
 # Hier laufen sie ohne Klassenkiste: Stand (Ton, Rekorde) nur im localStorage des Geräts, keine Sterne.
 KNOBELSPIELE = ['rechen-rakete', 'uhr-lesen', 'kiosk', 'wort-raten', 'der-die-das', 'silben-puzzle',
-                'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg']
+                'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg',
+                # Englisch (eigener Ordner englisch/index.html): Kleiderschrank kommt aus knobelspiele/, Owl Town aus englisch/owl-town.html
+                'kleiderschrank', 'owl-town']
 # Zurück führt in die Knobelkiste (knobelkiste/index.html), zum Fach des Spiels
 FACH = {'rechen-rakete': 'mathematik', 'uhr-lesen': 'mathematik', 'kiosk': 'mathematik', 'wort-raten': 'deutsch', 'der-die-das': 'deutsch',
-        'silben-puzzle': 'deutsch', 'bilderraetsel': 'knobeln', 'eulen-weg': 'knobeln', 'bilder-sudoku': 'knobeln', 'wasser-weg': 'knobeln'}
+        'silben-puzzle': 'deutsch', 'bilderraetsel': 'knobeln', 'eulen-weg': 'knobeln', 'bilder-sudoku': 'knobeln', 'wasser-weg': 'knobeln',
+        'kleiderschrank': 'englisch', 'owl-town': 'englisch'}
 for name in KNOBELSPIELE:
-    ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../knobelkiste/#' + FACH[name] + '"').replace('Zurück zur Eulenkiste', 'Zurück zur Knobelkiste')
+    if FACH[name] == 'englisch':
+        ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../englisch/"').replace('Zurück zur Eulenkiste', 'Zurück zu Englisch')
+    else:
+        ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../knobelkiste/#' + FACH[name] + '"').replace('Zurück zur Eulenkiste', 'Zurück zur Knobelkiste')
     k = Bau('spiele/' + name)
     # Startseite des Spiels: oben links der Knopf zurück zur Knobelkiste
     k.rep("""'<div class="top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
           """'<div class="top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
+    if name == 'kleiderschrank':
+        # Der Kleiderschrank hat eine eigene Startseite (Stufen-Pfad «pf-top»): dort auch der Zurück-Knopf
+        k.rep("""'<div class="top pf-top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
+              """'<div class="top pf-top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
+        k.rep('.pf-top .pill{pointer-events:auto}', '.pf-top .pill,.pf-top .lk-back{pointer-events:auto}')
     k.rep('</style>', ZURUECK_CSS + '</style>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">\n<meta name="referrer" content="no-referrer">')
+    if name == 'owl-town':
+        # Die 3D-Bibliothek (three.js, MIT-Lizenz) liegt lokal in bibliothek/three/ statt auf einem fremden Server
+        k.rep('"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"', '"three":"../bibliothek/three/build/three.module.min.js"')
+        k.rep('"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"', '"three/addons/":"../bibliothek/three/examples/jsm/"')
     k.schreibe('spiele/' + name + '.html')
