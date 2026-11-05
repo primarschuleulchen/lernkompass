@@ -167,8 +167,9 @@ t.rep('  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : 
       '  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);\n  s.screens.forEach(sc => { if (sc.id === "s-lektion" && sc.name === "10 – 12 Uhr") sc.name = "Halbklasse"; }); // Eulenkiste: Vorlage umbenannt')
 # Stil der Eulenkiste für Leisten, Menüs und Fenster (gemeinsam mit der Klassenkiste, siehe eulenstil_tagesfolie.py)
 sys.path.insert(0, HIER)
-from eulenstil_tagesfolie import eulenstil
+from eulenstil_tagesfolie import eulenstil, farbkreis
 eulenstil(t.rep)
+farbkreis(t.rep)
 t.schreibe('tagesfolie/index.html')
 
 # ---------------------------------------------------------------- Otterteich (Lautstärkenregler)
