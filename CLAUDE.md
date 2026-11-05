@@ -1,6 +1,6 @@
 # Eulenkiste – Arbeitsanleitung für Claude
 
-Übersichtsseite von Primarschuleulchen mit digitalen Tools. Geplante Adresse: `eulenkiste.primarschuleulchen.com` (Repository heisst noch `lernkompass`) (GitHub Pages, Branch `main`).
+Übersichtsseite von Primarschuleulchen mit digitalen Tools. Adresse: https://eulenkiste.primarschuleulchen.com/ (Repository heisst noch `lernkompass`; GitHub Pages, Branch `main`, eigene Adresse über die Datei `CNAME`; DNS bei WordPress.com: CNAME `eulenkiste` → `primarschuleulchen.github.io`). Die Klassenkiste ist unter https://klassenkiste.primarschuleulchen.com/.
 Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Schweizer Schreibweise («ss», «…»), kurz und ohne Fachjargon.
 
 ## Grundregel: keine Daten
