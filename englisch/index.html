@@ -38,7 +38,8 @@
 @media (prefers-reduced-motion:reduce){.kk-karte{transition:none}.kk-karte:hover{transform:none}}
 /* Englisch: kompakter, damit beide Spiele und der Hinweis auf einen iPad-Bildschirm passen */
 .kk{gap:16px;padding-top:16px;padding-bottom:24px}
-.kk-oben{margin-bottom:-56px}
+.kk-oben{margin-bottom:-56px;position:relative;z-index:2;pointer-events:none}
+.kk-oben .lk-back{pointer-events:auto}
 .kk-bild{width:96px;height:96px}
 .kk-kopf{gap:2px}
 .kk-kopf h1{font-size:clamp(36px,5vw,48px)}
