@@ -137,8 +137,7 @@ const KN_TIP = "Nur in der Klassenkiste – jetzt anmelden und freischalten";
 const KN_LINK = "";
 const KN_KLASSE = "In der Klassenkiste ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = [''')
-t.rep('.dock .sep{', '''.app.idle,.app.idle *{cursor:none!important}
-.dock button.locked{color:#9aa39d;cursor:help}
+t.rep('.dock .sep{', '''.dock button.locked{color:#9aa39d;cursor:help}
 .dock button.locked svg{opacity:.55}
 .dock button.locked:hover{background:#f1f2ef}
 .kn-tip{position:fixed;left:0;top:0;z-index:300;max-width:250px;background:#1f2421;color:#fff;border-radius:12px;padding:9px 13px;font-size:13px;line-height:1.35;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .15s}
@@ -166,6 +165,10 @@ t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
       ]}''')
 t.rep('  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);',
       '  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);\n  s.screens.forEach(sc => { if (sc.id === "s-lektion" && sc.name === "10 – 12 Uhr") sc.name = "Halbklasse"; }); // Eulenkiste: Vorlage umbenannt')
+# Stil der Eulenkiste für Leisten, Menüs und Fenster (gemeinsam mit der Klassenkiste, siehe eulenstil_tagesfolie.py)
+sys.path.insert(0, HIER)
+from eulenstil_tagesfolie import eulenstil
+eulenstil(t.rep)
 t.schreibe('tagesfolie/index.html')
 
 # ---------------------------------------------------------------- Otterteich (Lautstärkenregler)
