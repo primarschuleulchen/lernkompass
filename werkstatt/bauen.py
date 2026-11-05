@@ -259,3 +259,18 @@ w.rep('<title>Wort des Tages</title>', '<title>Wort des Tages</title>\n<link rel
 w.rep('.kopf img{width:46px;height:46px;flex:none}', ZURUECK_CSS + '\n.kopf .lk-back{box-shadow:none;background:var(--sky-soft)}')
 w.rep('.kopf img{width:38px;height:38px}', '.kopf .lk-back img{width:30px;height:30px}')
 w.schreibe('wort-des-tages/index.html')
+
+# ---------------------------------------------------------------- Knobelspiele aus der Klassenkiste (Lernspiele)
+# Die Spiele entstehen im Knobelnest (werkstatt/spiele/knobelspiele/bauen.py → knobelspiele/<spiel>.html).
+# Neue Version: die Datei aus knobelspiele/ nach werkstatt/originale/spiele/ kopieren und dieses Skript laufen lassen.
+# Hier laufen sie ohne Klassenkiste: Stand (Ton, Rekorde) nur im localStorage des Geräts, keine Sterne.
+KNOBELSPIELE = ['rechen-rakete', 'uhr-lesen', 'kiosk', 'wort-raten', 'der-die-das', 'silben-puzzle',
+                'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg']
+ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../#lernspiele"')
+for name in KNOBELSPIELE:
+    k = Bau('spiele/' + name)
+    # Startseite des Spiels: oben links der Knopf zurück zu den Lernspielen der Eulenkiste
+    k.rep("""'<div class="top"><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""",
+          """'<div class="top">""" + ZURUECK_SPIEL.replace("'", "\\'") + """<span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf">""")
+    k.rep('</style>', ZURUECK_CSS + '</style>\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">\n<meta name="referrer" content="no-referrer">')
+    k.schreibe('spiele/' + name + '.html')
