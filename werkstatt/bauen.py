@@ -80,11 +80,14 @@ g.rep('.pill:hover{', ZURUECK_CSS + '\n.pill:hover{')
 g.schreibe('gluecksrad/index.html')
 
 # ---------------------------------------------------------------- Tagesfolie
+# Die Tagesfolie entsteht in der Klassenkiste (Repo knobelnest, werkstatt/einbau/tagesfolie/). Original hier = deren
+# fertige tagesfolie.html. Ohne Klassenkiste läuft sie ohne Konto; hier kommen nur die Eulenkiste-Sachen dazu.
 t = Bau('tagesfolie')
-schriften(t)
+t.rep('<link rel="stylesheet" href="schriften/schriften.css">',
+      '<link rel="stylesheet" href="../schriften/schriften.css">\n<link rel="icon" type="image/png" href="../eulenkiste-icon.png">')
 # Knopf zurück zur Eulenkiste, ganz links in der oberen Leiste
-t.rep('<div class="top">\n    <div class="tabs"',
-      '<div class="top">\n    ' + ZURUECK + '\n    <div class="tabs"')
+t.rep('    <button class="pill kn-back" id="knBack" aria-label="Zurück zur Klassenkiste" title="Zurück zur Klassenkiste" style="display:none"><span aria-hidden="true">←</span><img src="bilder/eule.webp" alt="" width="34" height="34"></button>',
+      '    ' + ZURUECK)
 
 # Kein Konto, keine Datenbank: alles bleibt auf diesem Gerät (auch wenn die Seite in Claude geöffnet würde)
 t.rep('    if (!window.claude?.use) return;\n',
@@ -94,6 +97,8 @@ t.rep('    if (!window.claude?.use) return;\n',
 STAND_ICON = ('<rect x="4" y="6" width="24" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/>'
               '<path d="M4 13h24M12 6v20M20 6v20" stroke="currentColor" stroke-width="2"/>'
               '<circle cx="8" cy="19" r="2" fill="currentColor"/><circle cx="24" cy="22" r="2" fill="currentColor"/>')
+HEFT_ICON = ('<rect x="7" y="4" width="18" height="24" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.4"/>'
+             '<path d="M11 10h10M11 15h10M11 20h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>')
 OTTER_ICON = ('<ellipse cx="16" cy="22" rx="12" ry="5" fill="none" stroke="currentColor" stroke-width="2.4"/>'
               '<circle cx="16" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>'
               '<circle cx="11" cy="7.5" r="1.8" fill="currentColor"/><circle cx="21" cy="7.5" r="1.8" fill="currentColor"/>'
@@ -132,19 +137,19 @@ t.rep('''$("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></s
 })();''')
 t.rep('const DOCK = [',
       '''// Nur im Knobelnest erhältlich (grau in der Leiste). KN_LINK: später die Seite auf primarschuleulchen.com, wo man den Zugang bekommt
-const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Otterteich", `''' + OTTER_ICON + '''`] };
+const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Otterteich", `''' + OTTER_ICON + '''`], heft: ["Hausaufgaben", `''' + HEFT_ICON + '''`] };
 const KN_TIP = "Nur in der Klassenkiste – jetzt anmelden und freischalten";
 const KN_LINK = "";
 const KN_KLASSE = "In der Klassenkiste ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
 const DOCK = [''')
-t.rep('.dock .sep{', '''.dock button.locked{color:#9aa39d;cursor:help}
+t.rep('.dock .sep{width:1px', '''.dock button.locked{color:#9aa39d;cursor:help}
 .dock button.locked svg{opacity:.55}
 .dock button.locked:hover{background:#f1f2ef}
 .kn-tip{position:fixed;left:0;top:0;z-index:300;max-width:250px;background:#1f2421;color:#fff;border-radius:12px;padding:9px 13px;font-size:13px;line-height:1.35;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .15s}
 .kn-tip.show{opacity:1;pointer-events:auto}
 .kn-tip a{color:#bfe3fb;font-weight:800}
 ''' + ZURUECK_CSS + '''
-.dock .sep{''')
+.dock .sep{width:1px''')
 # Zweiter Start-Bildschirm heisst «Halbklasse» und ist so angeordnet, wie die Lehrerin ihn eingerichtet hat
 t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
         W("title", 24, 0, 42, 18, { text: "10 – 12 Uhr", color: TITLE_COLORS[2] }),
@@ -165,11 +170,10 @@ t.rep('''      { id: "s-lektion", name: "10 – 12 Uhr", bg: "", widgets: [
       ]}''')
 t.rep('  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);',
       '  s.bgs = s.bgs.map(b => typeof b === "string" ? { src: b, pal: null } : b);\n  s.screens.forEach(sc => { if (sc.id === "s-lektion" && sc.name === "10 – 12 Uhr") sc.name = "Halbklasse"; }); // Eulenkiste: Vorlage umbenannt')
-# Stil der Eulenkiste für Leisten, Menüs und Fenster (gemeinsam mit der Klassenkiste, siehe eulenstil_tagesfolie.py)
-sys.path.insert(0, HIER)
-from eulenstil_tagesfolie import eulenstil, farbkreis
-eulenstil(t.rep)
-farbkreis(t.rep)
+# Musik: kein YouTube (keine fremden Dienste), eigene Datei nur klein (Speicher dieses Geräts)
+t.rep('''    <h3 class="sh3">YouTube-Link</h3><div class="addrow"><input type="text" id="mus-yt" placeholder="https://www.youtube.com/watch?v=…" aria-label="YouTube-Link"><button class="sbtn rose" data-myt>Übernehmen</button></div>
+    <h3 class="sh3">Oder Audiodatei hochladen</h3>''', '''    <h3 class="sh3">Audiodatei hochladen</h3><p class="hint">Höchstens 3 MB, sie wird auf diesem Gerät gespeichert.</p>''')
+t.rep('if (f.size > 6e6) {', 'if (f.size > 3e6) {')
 t.schreibe('tagesfolie/index.html')
 
 # ---------------------------------------------------------------- Otterteich (Lautstärkenregler)
