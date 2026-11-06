@@ -8,7 +8,7 @@
 <meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/png" href="eulenkiste-icon.png?v=2">
 <link rel="stylesheet" href="schriften/schriften.css?v=2">
-<link rel="stylesheet" href="style.css?v=25">
+<link rel="stylesheet" href="style.css?v=27">
 </head>
 <body>
 
@@ -106,24 +106,46 @@
           <p>Ideen sammeln und ordnen: Wand, Mindmap, Zeitstrahl oder Venn-Diagramm. Alles bleibt auf deinem Gerät.</p>
         </a>
 
-        <a class="karte gelb klickbar" href="quiz/" aria-label="Quiz öffnen">
-          <span class="bild-rund mit-bild" aria-hidden="true"><img src="quiz-bild.webp" alt="" width="220" height="220" loading="lazy"></span>
-          <h3>Quiz</h3>
-          <p>Quiz erstellen und am Beamer mit der Klasse spielen. Mitspielen per QR-Code und Speichern in der Klassenkiste.</p>
-        </a>
-
-        <a class="karte gruen klickbar" href="umfrage/" aria-label="Umfrage öffnen">
-          <span class="bild-rund mit-bild" aria-hidden="true"><img src="umfrage-bild.webp" alt="" width="220" height="220" loading="lazy"></span>
-          <h3>Umfrage</h3>
-          <p>Abstimmungen, Wortwolken und Schätzfragen am Beamer. Mitmachen per QR-Code und Speichern in der Klassenkiste.</p>
-        </a>
-
         <a class="karte leer wunsch klickbar" href="https://www.instagram.com/primarschuleulchen/" target="_blank" rel="noopener noreferrer" aria-label="Meine Wünsche: schreib mir auf Instagram">
           <span class="bild-rund mit-bild" aria-hidden="true"><img src="wunsch-bild.webp" alt="" width="220" height="220" loading="lazy"></span>
           <h3>Meine Wünsche</h3>
           <p>Du wünschst dir ein Tool oder ein Lernspiel? Dann schreib mir, und vielleicht erscheint es schon bald hier 🙂</p>
           <span class="wunsch-knopf">Schreib mir auf Instagram →</span>
         </a>
+      </div>
+
+      <div class="mehr" id="mehr">
+        <div class="abschnitt-kopf mehr-kopf">
+          <span class="klein">Mit Anmeldung</span>
+          <h3>Weitere Tools in der Klassenkiste</h3>
+          <p>Tippe auf ein Tool, und ein kurzes Video zeigt, wie es aussieht.</p>
+        </div>
+        <div class="mehr-kacheln">
+        <button class="mehr-kachel" type="button" data-video="quiz" data-titel="Quiz" data-text="Live-Quiz mit der ganzen Klasse: Die Kinder scannen den QR-Code und spielen mit ihren eigenen Geräten mit. Punkte, Rangliste und Quiz aus Arbeitsblättern mit KI.">
+          <span class="mehr-bild"><img src="klassenkiste/quiz.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Quiz</b><small>▶ Video ansehen</small>
+        </button>
+        <button class="mehr-kachel" type="button" data-video="umfrage" data-titel="Umfrage" data-text="Abstimmungen, Stimmungsbarometer, Wortwolken und Schätzfragen. Die Kinder antworten am iPad, das Ergebnis erscheint live am Beamer.">
+          <span class="mehr-bild"><img src="klassenkiste/umfrage.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Umfrage</b><small>▶ Video ansehen</small>
+        </button>
+        <button class="mehr-kachel" type="button" data-video="arbeitsstand" data-titel="Arbeitsstand" data-text="Die Kinder zeigen am iPad, wo sie stehen: «Ich kann helfen», «Ich komme gut klar» oder «Ich habe eine Frage». Die Tafel zeigt sofort, wer wem helfen kann.">
+          <span class="mehr-bild"><img src="klassenkiste/arbeitsstand.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Arbeitsstand</b><small>▶ Video ansehen</small>
+        </button>
+        <button class="mehr-kachel" type="button" data-video="hausaufgabenheft" data-titel="Hausaufgabenheft" data-text="Hausaufgaben, Lernkontrollen und Termine eintragen. Die Kinder sehen alles auf ihrem Gerät und haken ab, was erledigt ist.">
+          <span class="mehr-bild"><img src="klassenkiste/hausaufgabenheft.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Hausaufgabenheft</b><small>▶ Video ansehen</small>
+        </button>
+        <button class="mehr-kachel" type="button" data-video="vokabelkiste" data-titel="Vokabelkiste" data-text="Wörter lernen mit Karteikasten, Bildern, Sprechen und Schreiben. Mit Sternen, Heft und Übersicht für die Lehrperson.">
+          <span class="mehr-bild"><img src="klassenkiste/vokabelkiste.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Vokabelkiste</b><small>▶ Video ansehen</small>
+        </button>
+        <button class="mehr-kachel" type="button" data-video="elterngespraeche" data-titel="Elterngespräche" data-text="Termine festlegen, den Link an die Eltern schicken, und die Klassenkiste erstellt den Plan.">
+          <span class="mehr-bild"><img src="klassenkiste/elterngespraeche.webp" alt="" width="96" height="96" loading="lazy"><span class="mehr-schloss" aria-hidden="true">🔒</span></span>
+          <b>Elterngespräche</b><small>▶ Video ansehen</small>
+        </button>
+        </div>
       </div>
     </div>
   </section>
@@ -216,5 +238,36 @@
   </div>
 </footer>
 
+
+<div class="video-fenster" id="videoFenster" hidden>
+  <div class="video-box" role="dialog" aria-modal="true" aria-labelledby="videoTitel">
+    <button class="video-zu" type="button" data-zu aria-label="Schliessen">✕</button>
+    <div class="video-kopf"><img id="videoBild" src="" alt="" width="56" height="56"><div><span class="klein">In der Klassenkiste</span><h3 id="videoTitel"></h3></div></div>
+    <video id="videoFilm" muted loop playsinline autoplay preload="none"></video>
+    <p id="videoText"></p>
+    <div class="video-knoepfe"><a class="btn voll" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Zur Klassenkiste ✦</a><button class="btn" type="button" data-zu>Schliessen</button></div>
+  </div>
+</div>
+<script>
+/* Weitere Tools in der Klassenkiste: Klick auf eine Kachel zeigt ein kurzes Video (liegt in klassenkiste/, ohne Ton) */
+(function () {
+  var f = document.getElementById('videoFenster'), v = document.getElementById('videoFilm'), zuletzt = null;
+  function zu() { f.hidden = true; v.pause(); v.removeAttribute('src'); v.load(); document.body.style.overflow = ''; if (zuletzt) zuletzt.focus(); }
+  document.querySelectorAll('[data-video]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      zuletzt = b; var k = b.getAttribute('data-video');
+      document.getElementById('videoTitel').textContent = b.getAttribute('data-titel');
+      document.getElementById('videoText').textContent = b.getAttribute('data-text');
+      document.getElementById('videoBild').src = 'klassenkiste/' + k + '.webp';
+      v.poster = 'klassenkiste/' + k + '.jpg'; v.src = 'klassenkiste/' + k + '.mp4';
+      f.hidden = false; document.body.style.overflow = 'hidden';
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+      f.querySelector('.video-zu').focus();
+    });
+  });
+  f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('[data-zu]')) zu(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !f.hidden) zu(); });
+})();
+</script>
 </body>
 </html>
