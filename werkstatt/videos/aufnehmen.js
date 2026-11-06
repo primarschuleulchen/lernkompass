@@ -8,6 +8,7 @@ const OUT = path.resolve(process.argv[2]); fs.mkdirSync(OUT, { recursive: true }
 const NUR = process.argv.slice(3);
 const RAW = path.join(OUT, 'roh'); fs.mkdirSync(RAW, { recursive: true });
 const URL = 'http://localhost:8765/', W = 1280, H = 800;
+const KN = process.env.KN || '/home/user/knobelnest';  // Repo knobelnest (Vokabelkiste und Bilder)
 const KINDER = ['Lena', 'David', 'Mia', 'Noah', 'Lia', 'Jan', 'Emma', 'Luca', 'Nina', 'Tim', 'Sara', 'Leo'];
 
 const CURSOR = `(function(){
@@ -159,42 +160,71 @@ FILME.heft = async function () {
 FILME.eltern = async function () {
   const f = await Film.neu('eltern'), p = f.p;
   const cid = await einrichten(f, KINDER.slice(0, 8));
-  await p.evaluate(`location.hash='#/gespraeche/${cid}'`); await p.waitForSelector('[data-a=egNew]'); await f.warte(3500);
-  f.los(); await f.warte(800);
-  await f.hin(p.locator('[data-a=egNew]')); await f.warte(1500);
-  await p.fill('input[name=d]', '2026-11-24'); await p.fill('input[name=to]', '19:20'); await f.warte(300);
-  await f.hin(p.locator('form[data-a=egAdd] button')); await f.warte(1800);
-  await f.hin(p.locator('[data-a=egOpen]')); await f.warte(900);
-  await f.warte(800);
-  // Eltern melden sich an (wie über den Link)
-  const tid = await p.evaluate(cid => __D.talks.find(t => t.class_id === cid).id, cid);
-  await p.evaluate(([tid, cid]) => { const t = __D.talks.find(x => x.id === tid), sl = t.cfg.slots.map(s => s.id), ks = __D.kids.filter(k => k.class_id === cid);
-    const wahl = [[0, 1, 2], [1, 3], [2, 4, 5], [0, 6], [3, 7], [5, 6, 7], [4], [1, 2, 6]];
-    ks.forEach((k, i) => DB.talkAnswerPut(tid, k.id, { name: 'Familie ' + k.name, slots: (wahl[i] || [0]).map(j => sl[j]) })); }, [tid, cid]);
-  await p.evaluate(`location.hash='#/gespraeche/${cid}'`); await f.warte(400);
-  await p.evaluate(([cid, tid]) => { location.hash = '#/gespraeche/' + cid + '/' + tid; }, [cid, tid]); await f.warte(1200);
-  await f.hin(p.locator('h2:has-text("Plan")').first(), false, 500);
-  await rolle(f, await p.evaluate(() => { const h = [...document.querySelectorAll('h2')].find(x => /Plan/.test(x.textContent)); return h.getBoundingClientRect().top - 90; })); await f.warte(3500);
+  // Gespräch mit Terminen und Anmeldungen der Eltern vorbereiten (wie nach ein paar Tagen)
+  await p.evaluate(cid => {
+    const sl = []; let m = 16 * 60; const hm = x => String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0');
+    for (let i = 0; i < 8; i++, m += 25) sl.push({ id: 's' + i, d: '2026-11-24', t: hm(m), e: hm(m + 20) });
+    const ks = __D.kids.filter(k => k.class_id === cid), wahl = [[0, 1, 2], [1, 3], [2, 4, 5], [0, 6], [3, 7], [5, 6, 7], [4], [1, 2, 6]], ans = {};
+    ks.forEach((k, i) => { ans[k.id] = { name: 'Familie ' + k.name, slots: wahl[i].map(j => 's' + j), note: '', none: false, key: null, at: new Date().toISOString(), lp: false }; });
+    __D.talks = [{ id: '7a1e0c2b-4d3f-4e5a-9b6c-1d2e3f4a5b6c', class_id: cid, token: 'tok1', cfg: { title: 'Elterngespräche November 2026', info: 'Die Gespräche finden im Schulzimmer statt.', open: false, slots: sl, diff: {}, fixed: {}, dur: 20, gap: 5 }, answers: ans, created_at: new Date().toISOString() }];
+  }, cid);
+  await p.evaluate(`location.hash='#/gespraeche/${cid}'`); await p.waitForSelector('.eg-ttitle'); await f.warte(3500);
+  f.los(); await f.warte(900);
+  await f.hin(p.locator('a.btn:has-text("Öffnen")').first());
+  await f.warte(1800);
+  await f.hin(p.locator('[data-a=egOpen]')); await f.warte(1500);
+  const ziel = await p.evaluate(() => { const h = [...document.querySelectorAll('h2')].find(x => /Plan/.test(x.textContent)); return h ? h.getBoundingClientRect().top - 70 : 700; });
+  await rolle(f, ziel, 45); await f.warte(1500);
+  const fix = p.locator('text=fixieren >> visible=true').first(); if (await fix.count()) { await f.hin(fix); await f.warte(1200); }
+  await f.warte(2000);
   await f.fertig('elterngespraeche');
 };
 
+// Bild quadratisch machen (durchsichtiger Rand), damit alle Kärtchen gleich gross sind
+function quadrat(datei) {
+  const aus = require('path').join(require('os').tmpdir(), 'vk-' + require('path').basename(datei));
+  require('child_process').execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', datei, '-vf',
+    "scale='min(400,iw*400/max(iw,ih))':'min(400,ih*400/max(iw,ih))',pad=400:400:(ow-iw)/2:(oh-ih)/2:color=0x00000000,format=yuva420p",
+    '-c:v', 'libwebp', '-quality', '80', aus]);
+  return fs.readFileSync(aus).toString('base64');
+}
 FILME.vokabel = async function () {
   const f = await Film.neu('vokabel'), p = f.p;
-  const html = fs.readFileSync('/home/user/knobelnest/werkstatt/originale/vokabelkiste.html', 'utf8');
+  // Vokabelkiste mit Bildern: für die Kleider in «U1 - Teil 3» die Zeichnungen der Lehrerin aus dem Kleiderschrank
+  let html = fs.readFileSync(KN + '/werkstatt/originale/vokabelkiste.html', 'utf8');
+  const m = html.match(/(<script[^>]*id=["']vk-content["'][^>]*>)([\s\S]*?)(<\/script>)/), d = JSON.parse(m[2]);
+  const BILD = { shirt: 'shirt', trousers: 'trousers', jumper: 'jumper', tie: 'tie', shoe: 'shoes', skirt: 'skirt', dress: 'dress' };
+  const teil = d.subjects[0].tree[0].kids[0].kids[2];
+  const SRC = {};  // Bild → Wort, damit die Maus immer richtig wählt
+  teil.words.forEach(w => {
+    if (BILD[w.f]) { w.img = 'data:image/webp;base64,' + quadrat(KN + '/werkstatt/spiele/knobelspiele/kleider_bilder/karte-' + BILD[w.f] + '.webp'); SRC[w.f] = w.img; }
+    else w.img = '-';  // Wörter ohne Zeichnung kommen in «Bild & Wort» nicht vor
+  });
+  html = html.replace(m[0], m[1] + JSON.stringify(d) + m[3]);
   const cid = await einrichten(f, KINDER, p => p.evaluate(h => DB.saveGame({ title: 'Vokabelkiste', fach: 'Englisch', thema: '', stufe: '4.–6. Klasse', html: h, for_all: true }), html));
-  await p.click('[data-a=tab] >> text=Übersicht'); await f.warte(3500);
-  f.los(); await f.warte(800);
-  await f.hin(p.locator('[data-a=vkOpen]').first()); await f.warte(3500);
+  // Wortlisten der Klasse (so liest sie die Vokabelkiste im Portal)
+  await p.evaluate(([cid, c]) => { const g = __D.games.find(x => x.title === 'Vokabelkiste'); __D.gsettings = __D.gsettings || {}; __D.gsettings[cid + '|' + g.id] = { content: c }; }, [cid, d]);
+  await p.click('[data-a=tab] >> text=Übersicht'); await f.warte(800);
+  await p.click('[data-a=vkOpen]'); await f.warte(4500);
   const fr = p.frameLocator('iframe[src*="vokabelkiste"]');
-  await f.hin(fr.locator('text=Unit 1 >> visible=true').first(), false); await rolle(f, 420); await f.warte(900);
-  await f.hin(fr.locator('text=Unit 1 >> visible=true').first()); await f.warte(1800);
-  const por = fr.locator('.pcard, .portion, [data-portion]').first();
-  if (await por.count()) { await f.hin(por); await f.warte(2000); }
-  else { await f.hin(fr.locator('text=Teil 1 >> visible=true').first()); await f.warte(2000); }
-  const st = fr.locator('text=Starten >> visible=true').first();
-  if (await st.count()) { await f.hin(st); await f.warte(2500);
-    const k = fr.locator('.card, .flip, .karte, [data-act=flip], button:has-text("Umdrehen")').first(); if (await k.count() && await k.isVisible()) { await f.hin(k); await f.warte(2200); } }
-  await f.warte(1200);
+  f.los(); await f.warte(1000);
+  await f.hin(fr.locator('text=Unit 1 >> visible=true').first(), false); await rolle(f, 420); await f.warte(800);
+  await f.hin(fr.locator('text=Unit 1 >> visible=true').first()); await f.warte(1500);
+  await f.hin(fr.locator('text=Teil 3 >> visible=true').first()); await f.warte(1800);
+  // Übung «Bild & Wort»
+  await f.hin(fr.locator('text=Bild & Wort >> visible=true').first()); await f.warte(2200);
+  for (let i = 0; i < 4; i++) {
+    // richtige Antwort suchen: Bild → Wort (.opt) oder Wort → Bild (.bopt)
+    const n = await fr.locator('body').evaluate((b, SRC) => {
+      const big = b.querySelector('.bbig img'), wort = b.querySelector('.bword');
+      if (big) { const w = Object.keys(SRC).find(k => SRC[k] === big.getAttribute('src')); return [...b.querySelectorAll('.opt')].findIndex(o => o.textContent.replace(/^\d+/, '').trim() === w); }
+      if (wort) { const w = wort.textContent.trim(); return [...b.querySelectorAll('.bopt')].findIndex(o => (o.querySelector('img') || {}).getAttribute && o.querySelector('img').getAttribute('src') === SRC[w]); }
+      return -1;
+    }, SRC);
+    if (n < 0) break;
+    await f.hin(fr.locator('[data-i="' + n + '"] >> visible=true').first()); await f.warte(2000);
+  }
+  await f.warte(1500);
   await f.fertig('vokabelkiste');
 };
 
