@@ -137,7 +137,7 @@ t.rep('''$("#dock").innerHTML = DOCK.map(k => k === "|" ? `<span class="sep"></s
 })();''')
 t.rep('const DOCK = [',
       '''// Nur im Knobelnest erhältlich (grau in der Leiste). KN_LINK: später die Seite auf primarschuleulchen.com, wo man den Zugang bekommt
-const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Otterteich", `''' + OTTER_ICON + '''`], heft: ["Hausaufgaben", `''' + HEFT_ICON + '''`] };
+const KN_NUR = { stand: ["Arbeitsstand", `''' + STAND_ICON + '''`], otter: ["Lautstärke", `''' + OTTER_ICON + '''`], heft: ["Hausaufgaben", `''' + HEFT_ICON + '''`] };
 const KN_TIP = "Nur in der Klassenkiste – jetzt anmelden und freischalten";
 const KN_LINK = "";
 const KN_KLASSE = "In der Klassenkiste ist deine Klassenliste fix eingetragen, und du kannst Vorlagen speichern.";
