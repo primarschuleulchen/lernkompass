@@ -275,6 +275,7 @@ w.schreibe('wort-des-tages/index.html')
 KNOBELSPIELE = ['rechen-rakete', 'uhr-lesen', 'kiosk', 'wort-raten', 'der-die-das', 'silben-puzzle',
                 'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg',
                 'zahlenmauer', 'kloetzli-turm', 'kisten-packen', 'laternen', 'schiebe-bild', 'geheimcode', 'irrgarten',
+                'waage', 'spiegelbild', 'zahlen-pfad',
                 # Englisch (eigener Ordner englisch/index.html): Kleiderschrank kommt aus knobelspiele/, Owl Town aus englisch/owl-town.html
                 'kleiderschrank', 'owl-town']
 # Zurück führt in die Knobelkiste (knobelkiste/index.html), zum Fach des Spiels
@@ -282,6 +283,7 @@ FACH = {'rechen-rakete': 'mathematik', 'uhr-lesen': 'mathematik', 'kiosk': 'math
         'silben-puzzle': 'deutsch', 'bilderraetsel': 'knobeln', 'eulen-weg': 'knobeln', 'bilder-sudoku': 'knobeln', 'wasser-weg': 'knobeln',
         'zahlenmauer': 'mathematik', 'kloetzli-turm': 'knobeln', 'kisten-packen': 'knobeln', 'laternen': 'knobeln',
         'schiebe-bild': 'knobeln', 'geheimcode': 'knobeln', 'irrgarten': 'knobeln',
+        'waage': 'mathematik', 'spiegelbild': 'knobeln', 'zahlen-pfad': 'knobeln',
         'kleiderschrank': 'englisch', 'owl-town': 'englisch'}
 for name in KNOBELSPIELE:
     if FACH[name] == 'englisch':
