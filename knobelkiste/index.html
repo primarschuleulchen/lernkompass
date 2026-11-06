@@ -44,7 +44,7 @@
   <div class="kk-kopf">
     <img class="kk-bild" src="../knobelkiste-bild.webp?v=2" alt="" width="118" height="118">
     <h1>Knobel<em>kiste</em></h1>
-    <p>Spiele zum Knobeln und Üben. Jedes hat fünf Stufen, von leicht bis Profi.</p>
+    <p>Spiele zum Knobeln und Üben. Jedes hat mehrere Stufen, von leicht bis Profi.</p>
   </div>
   <div class="kk-arten" role="group" aria-label="Welche Spiele?" id="arten"></div>
   <div class="kk-spiele" id="spiele"></div>
@@ -62,7 +62,14 @@ var SPIELE = [
   ['bilderraetsel', 'Bilderrätsel', 'Knobeln', 'Felder nach Zahlen ausmalen, bis ein Bild erscheint.'],
   ['eulen-weg', 'Eulen-Weg', 'Knobeln', 'Pfeile legen, damit die Eule nach Hause findet.'],
   ['bilder-sudoku', 'Bilder-Sudoku', 'Knobeln', 'Jedes Bild nur einmal pro Zeile, Spalte und Kästchen.'],
-  ['wasser-weg', 'Wasser-Weg', 'Knobeln', 'Röhren drehen, bis das Wasser zur Blume fliesst.']];
+  ['wasser-weg', 'Wasser-Weg', 'Knobeln', 'Röhren drehen, bis das Wasser zur Blume fliesst.'],
+  ['zahlenmauer', 'Zahlenmauer', 'Mathematik', 'Jeder Stein ist die Summe der zwei Steine darunter.'],
+  ['kloetzli-turm', 'Klötzli-Turm', 'Knobeln', 'Fallende Klötzli drehen und schieben, bis Reihen voll sind.'],
+  ['kisten-packen', 'Kisten-Packen', 'Knobeln', 'Klötzli in die Kiste legen. Volle Reihen verschwinden.'],
+  ['laternen', 'Laternen', 'Knobeln', 'Ein Tipp schaltet eine Laterne und ihre Nachbarn um.'],
+  ['schiebe-bild', 'Schiebe-Bild', 'Knobeln', 'Die Teile zurückschieben, bis das Bild wieder stimmt.'],
+  ['geheimcode', 'Geheimcode', 'Knobeln', 'Einen versteckten Farbcode aus Perlen knacken.'],
+  ['irrgarten', 'Irrgarten', 'Knobeln', 'Die Eule durch das Labyrinth nach Hause führen.']];
 var ARTEN = ['Alle', 'Mathematik', 'Deutsch', 'Knobeln'];
 function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function art() { var a = decodeURIComponent(location.hash.slice(1)).toLowerCase(); return ARTEN.filter(function (x) { return x.toLowerCase() === a; })[0] || 'Alle'; }
