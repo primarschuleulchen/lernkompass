@@ -276,6 +276,7 @@ KNOBELSPIELE = ['rechen-rakete', 'uhr-lesen', 'kiosk', 'wort-raten', 'der-die-da
                 'bilderraetsel', 'eulen-weg', 'bilder-sudoku', 'wasser-weg',
                 'zahlenmauer', 'kloetzli-turm', 'kisten-packen', 'laternen', 'schiebe-bild', 'geheimcode', 'irrgarten',
                 'waage', 'spiegelbild', 'zahlen-pfad',
+                'brueche', 'muster-reihe', 'lichtstrahl',
                 # Englisch (eigener Ordner englisch/index.html): Kleiderschrank kommt aus knobelspiele/, Owl Town aus englisch/owl-town.html
                 'kleiderschrank', 'owl-town']
 # Zurück führt in die Knobelkiste (knobelkiste/index.html), zum Fach des Spiels
@@ -284,6 +285,7 @@ FACH = {'rechen-rakete': 'mathematik', 'uhr-lesen': 'mathematik', 'kiosk': 'math
         'zahlenmauer': 'mathematik', 'kloetzli-turm': 'knobeln', 'kisten-packen': 'knobeln', 'laternen': 'knobeln',
         'schiebe-bild': 'knobeln', 'geheimcode': 'knobeln', 'irrgarten': 'knobeln',
         'waage': 'mathematik', 'spiegelbild': 'knobeln', 'zahlen-pfad': 'knobeln',
+        'brueche': 'mathematik', 'muster-reihe': 'knobeln', 'lichtstrahl': 'knobeln',
         'kleiderschrank': 'englisch', 'owl-town': 'englisch'}
 for name in KNOBELSPIELE:
     if FACH[name] == 'englisch':
