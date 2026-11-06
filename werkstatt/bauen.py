@@ -396,3 +396,172 @@ q.rep("""<h1>Live-Quiz mit der ganzen Klasse</h1>' +
       '<p class="eule-hinweis">Hier wird nichts gespeichert: Beim Schliessen der Seite sind die Quiz weg. In der <a href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Klassenkiste</a> bleiben sie gespeichert, die Kinder spielen per QR-Code mit ihren Geräten mit, und die KI erstellt Quiz aus Arbeitsblättern.</p>'""")
 q.rep('data-a="kiOpen">✨ Fragen mit KI', 'data-a="kiOpen">🔒 Fragen mit KI')
 q.schreibe('quiz/index.html')
+
+# ---------------------------------------------------------------- Umfrage (aus dem Portal der Klassenkiste herausgelöst, ohne Datenbank)
+# Die Umfrage ist in der Klassenkiste kein eigenes Werkzeug, sondern steckt in app.js (Modul U) und style.css.
+# Originale: werkstatt/originale/klassenkiste-app.js und klassenkiste-style.css (Kopien aus dem Repo knobelnest).
+# Hier: Umfragen erstellen und am Beamer zeigen; die Kinder antworten nacheinander am selben Gerät («＋ Antwort eintragen»).
+# Nichts wird gespeichert. Mitmachen mit eigenen Geräten (Klasse/QR-Code) und Speichern nur in der Klassenkiste.
+def umfrage():
+    app = open(os.path.join(HIER, 'originale', 'klassenkiste-app.js'), encoding='utf-8').read()
+    css = open(os.path.join(HIER, 'originale', 'klassenkiste-style.css'), encoding='utf-8').read()
+    def stueck(start, ende):
+        a = app.find(start); b = app.find(ende, a)
+        if a < 0 or b < 0: sys.exit('umfrage: Stelle nicht gefunden: ' + (start if a < 0 else ende)[:60])
+        return app[a:b]
+    teil = stueck('  var UMF_TYPES = [', '  // ===================================================================\n  // Gedächtniskiste')
+    teil += stueck('  // Eingabe für eine Frage. dr = Entwurf des Kindes', '  K.umfQ = function')
+    teil += stueck('  function kuSendState()', '  ACT.kuSend = async function')
+    u = Bau.__new__(Bau); u.name = 'umfrage'; u.s = teil
+    # Bilder aus der Eulenkiste
+    u.rep("'bilder/kacheln/umfrage-urne.webp'", "'umfrage-urne.webp'", u.s.count("'bilder/kacheln/umfrage-urne.webp'"))
+    u.rep('src="bilder/kacheln/umfrage-urne.webp"', 'src="umfrage-urne.webp"', u.s.count('src="bilder/kacheln/umfrage-urne.webp"'))
+    # Keine Klasse: «Klasse …» fällt weg (U.cls.name = «am Beamer»)
+    n = u.s.count("Klasse ' + h(U.cls.name)"); u.rep("Klasse ' + h(U.cls.name)", "' + h(U.cls.name)", n)
+    # Kopf der Live-Ansicht: statt «Mitmachen mit Code» Knopf zum Eintragen und gesperrter QR-Code
+    u.rep("""        : '<div class="us-join">Mitmachen: ' + h(C.PORTAL_NAME) + ' öffnen und auf <b>«Umfrage»</b> tippen · Code <b>' + h(U.cls.code || '') + '</b></div>') +""",
+          """        : '<div class="us-join ek-join"><button class="board-btn hot" data-a="ekAnt">＋ Antwort eintragen</button><button class="board-btn" data-a="ekQr">🔒 Mitmachen per QR-Code</button></div>') +""")
+    # Liste: Text der Klassenkiste anpassen, Hinweis auf die Klassenkiste
+    u.rep("""<p>Stellen Sie der Klasse Fragen: Abstimmungen, Wortwolken, Quiz, Schätzfragen und mehr. Die Kinder antworten am iPad, die Ergebnisse erscheinen live an der Wandtafel.</p>' +
+      '<p class="muted small">Ihre Umfragen gelten für alle Ihre Klassen. Die Antworten werden pro Klasse gespeichert.</p></div>'""",
+          """<p>Stelle der Klasse Fragen: Abstimmungen, Wortwolken, Quiz, Schätzfragen und mehr. Am Beamer zeigen, die Kinder tippen ihre Antwort nacheinander am selben Gerät ein, und das Ergebnis erscheint sofort.</p>' +
+      '<p class="eule-hinweis">Hier wird nichts gespeichert: Beim Schliessen der Seite sind die Umfragen weg. In der <a href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Klassenkiste</a> bleiben sie gespeichert, und die Kinder antworten gleichzeitig mit ihren eigenen Geräten, mit Klassen-Login oder per QR-Code.</p></div>'""")
+    u.rep("toast('Die Umfrage läuft. Die Kinder tippen auf «Umfrage».');", "toast('Die Umfrage läuft. Mit «＋ Antwort eintragen» geben die Kinder ihre Antwort ein.');")
+    # Als Vorlage speichern geht hier nicht dauerhaft
+    u.rep("""'<button class="btn sm" data-a="uAsTpl" data-id="' + sv.id + '" title="Als Vorlage speichern">⭐ Als Vorlage</button>' +""", "")
+    # Speichern gibt es hier nicht
+    u.rep("(U.st ? 'Wird gespeichert …' : '✓ Gespeichert')", "'nur bis zum Schliessen'")
+    u.rep("""'<button class="btn" data-a="uAsTpl" data-id="' + sv.id + '">⭐ Als Vorlage speichern</button>""", "'")
+    u.rep("toast('Umfrage beendet. Die Antworten bleiben gespeichert.')", "toast('Umfrage beendet. Die Antworten bleiben bis zum Schliessen der Seite.')")
+    js = u.s
+    rumpf = css.replace('url(schriften/patrick-hand.woff2)', 'url(../schriften/patrick-hand.woff2)')
+    html = '''<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Umfrage – Eulenkiste</title>
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="../eulenkiste-icon.png">
+<link rel="stylesheet" href="../schriften/schriften.css">
+<style>
+/* Gestaltung der Klassenkiste (style.css aus dem Repo knobelnest) */
+''' + rumpf + '''
+/* Eulenkiste */
+.eule-hinweis{margin-top:4px;padding:10px 16px;border-radius:16px;background:#fbf3dc;border:1.5px dashed #d6ad45;font-size:16px;color:#4a3d1a}
+.ek-join{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ek-ant{width:min(720px,100%)}
+.ek-ant h2{font-size:30px}
+.ek-n{color:var(--soft);font-size:16px}
+.kk-nur-box{max-width:480px}
+</style>
+</head>
+<body class="lp">
+<div id="app"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(function () {
+  'use strict';
+  var app = document.getElementById('app');
+  // ---------- Hilfsfunktionen wie im Portal der Klassenkiste ----------
+  function h(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function plural(n, one, many) { return n === 1 ? '1 ' + one : n + ' ' + many; }
+  function hash(s) { var x = 0; s = String(s); for (var i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) >>> 0; return x; }
+  var KID_TINTS = ['#F6C9A8', '#CFDDF0', '#CFE5C6', '#D3F1E4', '#E3D5F0', '#F3E2A6'];
+  function kidColor(name) { return KID_TINTS[hash(name) % KID_TINTS.length]; }
+  function medal(n) { return n === 1 ? '🥇' : n === 2 ? '🥈' : n === 3 ? '🥉' : n + '.'; }
+  function shortUrl(u) { return u.replace(/^https?:\\/\\//, ''); }
+  function klassBild() { return 'umfrage-urne.webp'; }
+  function qrSvg() { return Promise.reject(new Error('Nur in der Klassenkiste')); }
+  var toastTimer;
+  function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3200); }
+  function errMsg(e) { return (e && e.message) || String(e); }
+  function paint(html) {
+    var a = document.activeElement, id = a && a.id, s = null, e = null;
+    try { s = a.selectionStart; e = a.selectionEnd; } catch (x) {}
+    app.innerHTML = html;
+    if (id) { var n = document.getElementById(id); if (n) { n.focus(); try { if (s != null) n.setSelectionRange(s, e); } catch (x) {} } }
+  }
+  function backBtn() { return '<a class="kn-back" href="../" aria-label="Zurück zur Eulenkiste" title="Zurück zur Eulenkiste"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="34" height="34" draggable="false"></a>'; }
+  var timers = []; function every(ms, fn) { timers.push(setInterval(fn, ms)); }
+  var ACT = {};
+  function run(fn, el, ev) { if (!fn) return; Promise.resolve().then(function () { return fn(el, ev); }).catch(function (err) { console.error(err); toast(errMsg(err)); }); }
+  document.addEventListener('click', function (e) { var el = e.target.closest('[data-a]'); if (!el || el.tagName === 'FORM') return; if (el.tagName === 'A' && !el.getAttribute('href')) e.preventDefault(); run(ACT[el.dataset.a], el, e); });
+  document.addEventListener('submit', function (e) { var f = e.target.closest('form[data-a]'); if (!f) return; e.preventDefault(); run(ACT[f.dataset.a], f, e); });
+  document.addEventListener('change', function (e) { var el = e.target.closest('[data-change]'); if (el) run(ACT[el.dataset.change], el, e); });
+  document.addEventListener('input', function (e) { var el = e.target.closest('[data-input]'); if (el) run(ACT[el.dataset.input], el, e); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOverlays(); });
+  var UI = { confirm: null, view: 'umfrage' };
+  var confirmTimer;
+  function armed(key) { if (UI.confirm === key) { UI.confirm = null; return true; } UI.confirm = key; clearTimeout(confirmTimer); confirmTimer = setTimeout(function () { if (UI.confirm === key) { UI.confirm = null; U.render(); } }, 4000); return false; }
+  function overlay(html) { closeOverlays(); var o = document.createElement('div'); o.className = 'overlay'; o.innerHTML = html; o.addEventListener('click', function (e) { if (e.target === o) closeOverlays(); }); document.body.appendChild(o); var f = o.querySelector('input,button'); if (f) f.focus(); return o; }
+  function closeOverlays() { Array.prototype.forEach.call(document.querySelectorAll('.overlay'), function (o) { o.remove(); }); }
+  ACT.closeOverlay = function () { closeOverlays(); };
+  ACT.wallFull = function () { if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); };
+  // ---------- Speicher nur im Speicher dieser Seite (nichts wird verschickt) ----------
+  var MEM = {};
+  var DB = {
+    storeGet: function (k) { return Promise.resolve(MEM[k] ? JSON.parse(JSON.stringify(MEM[k])) : null); },
+    storeSet: function (k, v) { MEM[k] = JSON.parse(JSON.stringify(v)); return Promise.resolve(); },
+    sharedGet: function () { return Promise.resolve(null); },
+    sharedSet: function () { return Promise.reject(new Error('Nur in der Klassenkiste')); },
+    umfragePut: function (cid, live, clear, sec) { var now = Date.now(); return Promise.resolve({ now: now, until: live && live.sec ? now + live.sec * 1000 : null }); }
+  };
+  var K = { U: null };
+
+''' + js + '''
+  // ---------- Eulenkiste: Start ohne Klasse, ohne Datenbank ----------
+  U.cls = { name: 'am Beamer', bild: '', code: '' }; U.ckids = []; U.list = []; U.tv = { eigene: [], weg: [] }; U.tshared = []; U.admin = false; U.tvWeg = false;
+  U.docs = { klasse: { live: null, ans: {} }, offen: null }; U.cid = 'beamer'; U.off = 0;
+  U.use('klasse'); U.view = 'list';
+  U.poll = function () {};
+  U.save = function () { clearTimeout(U.st); U.st = null; var m = document.getElementById('ueSaved'); if (m) m.textContent = 'nur bis zum Schliessen'; return Promise.resolve(); };
+  // Starten: direkt am Beamer (kein «Wer macht mit?»)
+  ACT.uStart = async function (el) {
+    var sv = U.find(el.dataset.id); if (!sv) return;
+    var bad = umfCheck(sv); if (bad) { if (U.view !== 'edit') { U.eid = sv.id; U.qi = 0; U.add = false; U.view = 'edit'; U.render(); } return toast(bad); }
+    return ACT.uGo({ dataset: { id: sv.id, neu: '1' } });
+  };
+  // Antworten am selben Gerät eintragen (Eingabe wie bei den Kindern)
+  var NR = 0;
+  K.umfQ = function () { var l = U.doc.live; if (!l || !l.on) return null; var qs = l.qs || []; return qs[U.idx()] || qs[0]; };
+  K.umfDr = function (q) { if (K.U.dr[q.id] === undefined) K.U.dr[q.id] = umfDraft0(q); return K.U.dr[q.id]; };
+  K.render = function () {
+    var q = K.umfQ(), box = document.getElementById('ekAntBox'); if (!q || !box) return;
+    box.innerHTML = '<span class="ek-n">' + umfType(q.type)[2] + ' ' + h(umfType(q.type)[1]) + '</span><h2>' + h(q.text) + '</h2>' + umfInput(q, K.umfDr(q)) +
+      '<div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-a="closeOverlay">Fertig</button><button class="btn primary" data-a="kuSend">Antwort abgeben ✦</button></div>';
+    kuSendState();
+  };
+  ACT.ekAnt = function () {
+    var l = U.doc.live, q = K.umfQ(); if (!q) return;
+    if (q.type === 'info') return toast('Bei einer Infofolie gibt es nichts zu beantworten.');
+    if (!l.open) return toast('Die Abstimmung ist geschlossen. Zuerst «🔓 Öffnen».');
+    K.U = { dr: {}, edit: {}, i: 0 };
+    overlay('<div class="card stack ek-ant kidv" id="ekAntBox"></div>'); K.render();
+  };
+  ACT.kuSend = function () {
+    var q = K.umfQ(); if (!q) return; var v = umfVal(q, K.umfDr(q)); if (v == null) return;
+    if (!U.doc.live.open) { closeOverlays(); return toast('Die Abstimmung ist geschlossen.'); }
+    var id = 'g' + (++NR); U.ckids.push({ id: id, name: 'Antwort ' + NR }); U.use('klasse');
+    (U.doc.ans[q.id] = U.doc.ans[q.id] || {})[id] = v;
+    K.U.dr = {}; U.render(); K.render(); toast('Danke! Die nächste Person ist dran.');
+  };
+  // Hinweis: nur in der Klassenkiste
+  ACT.ekQr = function () {
+    overlay('<div class="card stack kk-nur-box"><h2>🔒 Mitmachen per QR-Code</h2><p>Das gibt es nur in der Klassenkiste. Dort antworten alle Kinder gleichzeitig mit ihren eigenen Geräten, mit dem Klassen-Login oder per QR-Code, und die Umfragen bleiben gespeichert.</p>' +
+      '<p class="muted small">Hier in der Eulenkiste tippen die Kinder ihre Antwort nacheinander am selben Gerät ein. Gespeichert wird nichts.</p>' +
+      '<div class="row"><a class="btn primary" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Zur Klassenkiste ✦</a><button class="btn" data-a="closeOverlay">Schliessen</button></div></div>');
+  };
+  window.addEventListener('beforeunload', function (e) { if (U.list.length) { e.preventDefault(); e.returnValue = ''; } });
+  U.render();
+  every(500, U.tick);
+})();
+</script>
+</body>
+</html>
+'''
+    ziel = os.path.join(WURZEL, 'umfrage', 'index.html')
+    alt = open(ziel, encoding='utf-8').read() if os.path.exists(ziel) else None
+    open(ziel, 'w', encoding='utf-8').write(html)
+    print('umfrage/index.html: ' + ('gleich' if alt == html else 'neu geschrieben'))
+umfrage()
