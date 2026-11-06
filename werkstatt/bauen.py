@@ -210,7 +210,7 @@ if (!window.claude || !window.claude.use) {
   const save = () => {
     try { localStorage.setItem(KEY, JSON.stringify(D)); }
     catch { const e = new Error("voll"); e.code = "quota_exceeded"; throw e; }
-    setTimeout(() => subs.forEach(f => f()), 0);
+    subs.forEach(f => f()); // sofort: eine neue Pinnwand muss schon da sein, wenn sie geöffnet wird
   };
   const watch = f => { subs.add(f); setTimeout(f, 0); return () => subs.delete(f); };
   const merge = (a, b) => { const r = copy(a || {}); for (const k in b) r[k] = b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && r[k] && typeof r[k] === "object" && !Array.isArray(r[k]) ? merge(r[k], b[k]) : b[k]; return r; };
@@ -256,6 +256,13 @@ p.rep('''  for (const k in keep) { const el = document.getElementById(k); if (el
 p.rep('.note .txt{font-family:var(--hand);font-size:1.5rem;', '.note .txt{font-family:var(--hand);font-size:1.9rem;')
 p.rep('#app[data-font="klar"] .note .txt{font-size:1.2rem}', '#app[data-font="klar"] .note .txt{font-size:1.55rem}')
 p.rep('.present-on .note .txt{font-size:2rem}', '.present-on .note .txt{font-size:2.5rem}')
+# Klassenkiste-Stil: Patrick Hand, helles Blau, Gold-Akzente ✦ ✧ ✦ (gleiche Datei wie in der Klassenkiste:
+# knobelnest werkstatt/einbau/pinnwand/pin_stil.py; bei Änderungen beide anpassen). Die Eule steckt schon im Zurück-Knopf.
+rep = p.rep; EULE = ''; SCHRIFT = ''
+exec(open(os.path.join(HIER, 'pin_stil.py'), encoding='utf-8').read())
+# Hinweis: eigene Vorlagen (bearbeiten, löschen, erstellen) gibt es in der Klassenkiste
+p.rep('esc(t.icon) + " Erstellen"}</button></div></section>`;', '''esc(t.icon) + " Erstellen"}</button></div>
+    <div class="vl-hint"><span class="vl-stern" aria-hidden="true">✦</span><p><b>Eigene Vorlagen?</b> In der Klassenkiste können Sie Vorlagen bearbeiten, löschen und eigene erstellen, dazu viele weitere Werkzeuge für Ihre Klasse.</p><a class="btn vl-btn" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">✦ Hol dir jetzt den Zugang</a></div></section>`;''')
 p.schreibe('pinnwand/index.html')
 
 # ---------------------------------------------------------------- Wort des Tages (Lernspiel)
