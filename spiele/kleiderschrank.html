@@ -667,7 +667,7 @@ G.menu = function () {
     return '<button class="pf-karte" data-lv="' + i + '" style="background:linear-gradient(180deg,#fff 0%,' + LV_COL[i] + ' 100%)"><span class="pf-tx"><b>' + h(lv.name) + '</b><span>' + h(lv.info) + '</span></span>' +
       stars(have, mx) + '</button>';
   }
-  var o = '<div class="top pf-top"><a class="lk-back" href="../englisch/" title="Zurück zu Englisch" aria-label="Zurück zu Englisch"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf"><span class="ring">' + G.icon + '</span><h1>' + h(G.title) + '</h1><p>' + G.intro + '</p><div class="deko">✦ ✧ ✦</div></div>' +
+  var o = '<div class="top pf-top"><a class="lk-back" href="../englisch/" title="Zurück zur Englischkiste" aria-label="Zurück zur Englischkiste"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf"><span class="ring">' + G.icon + '</span><h1>' + h(G.title) + '</h1><p>' + G.intro + '</p><div class="deko">✦ ✧ ✦</div></div>' +
     '<div class="pfad"><div class="pf-wahl">Wähle eine Stufe</div>';
   reihen.forEach(function (r, ri) {
     if (r.length === 2) o += '<div class="pf-reihe"><div class="pf-l">' + karte(r[0]) + '</div><div class="pf-n zwei"><i>' + (r[0] + 1) + '</i><i>' + (r[1] + 1) + '</i></div><div class="pf-r">' + karte(r[1]) + '</div></div>';
@@ -774,7 +774,7 @@ var showStars = MODE === 'url' || MODE === 'srcdoc';
 function menu() {
   stopAll(); RUN++; CUR = -1; KN.level(null);
   if (G.menu) { G.menu(); return; }
-  var o = '<div class="top"><a class="lk-back" href="../englisch/" title="Zurück zu Englisch" aria-label="Zurück zu Englisch"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf"><span class="ring">' + G.icon + '</span><h1>' + h(G.title) + '</h1><p>' + G.intro + '</p><div class="deko">✦ ✧ ✦</div></div><div class="lvs">';
+  var o = '<div class="top"><a class="lk-back" href="../englisch/" title="Zurück zur Englischkiste" aria-label="Zurück zur Englischkiste"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a><span style="flex:1"></span>' + sndBtn() + '</div><div class="kopf"><span class="ring">' + G.icon + '</span><h1>' + h(G.title) + '</h1><p>' + G.intro + '</p><div class="deko">✦ ✧ ✦</div></div><div class="lvs">';
   G.levels.forEach(function (lv, i) {
     var s = KN.sterne('Stufe ' + (i + 1)), mx = s.max || 3;
     o += '<button class="lv" data-lv="' + i + '"><span class="n" style="background:' + LV_COL[i] + '">' + (i + 1) + '</span><span class="tx"><b>' + h(lv.name) + '</b><span>' + h(lv.info) + '</span></span>' +

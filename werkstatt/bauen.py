@@ -296,7 +296,7 @@ FACH = {'rechen-rakete': 'mathematik', 'uhr-lesen': 'mathematik', 'kiosk': 'math
         'kleiderschrank': 'englisch', 'owl-town': 'englisch'}
 for name in KNOBELSPIELE:
     if FACH[name] == 'englisch':
-        ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../englisch/"').replace('Zurück zur Eulenkiste', 'Zurück zu Englisch')
+        ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../englisch/"').replace('Zurück zur Eulenkiste', 'Zurück zur Englischkiste')
     else:
         ZURUECK_SPIEL = ZURUECK.replace('href="../"', 'href="../knobelkiste/#' + FACH[name] + '"').replace('Zurück zur Eulenkiste', 'Zurück zur Knobelkiste')
     k = Bau('spiele/' + name)
