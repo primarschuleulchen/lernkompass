@@ -69,7 +69,10 @@ var SPIELE = [
   ['laternen', 'Laternen', 'Knobeln', 'Ein Tipp schaltet eine Laterne und ihre Nachbarn um.'],
   ['schiebe-bild', 'Schiebe-Bild', 'Knobeln', 'Die Teile zurückschieben, bis das Bild wieder stimmt.'],
   ['geheimcode', 'Geheimcode', 'Knobeln', 'Einen versteckten Farbcode aus Perlen knacken.'],
-  ['irrgarten', 'Irrgarten', 'Knobeln', 'Die Eule durch das Labyrinth nach Hause führen.']];
+  ['irrgarten', 'Irrgarten', 'Knobeln', 'Die Eule durch das Labyrinth nach Hause führen.'],
+  ['waage', 'Waage', 'Mathematik', 'Gewichte auflegen, bis die Waage gerade ist.'],
+  ['spiegelbild', 'Spiegelbild', 'Knobeln', 'Ein Muster an der goldenen Linie spiegeln.'],
+  ['zahlen-pfad', 'Zahlen-Pfad', 'Knobeln', 'Einen Weg von 1 bis zur letzten Zahl durch alle Felder ziehen.']];
 var ARTEN = ['Alle', 'Mathematik', 'Deutsch', 'Knobeln'];
 function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function art() { var a = decodeURIComponent(location.hash.slice(1)).toLowerCase(); return ARTEN.filter(function (x) { return x.toLowerCase() === a; })[0] || 'Alle'; }
