@@ -72,7 +72,10 @@ var SPIELE = [
   ['irrgarten', 'Irrgarten', 'Knobeln', 'Die Eule durch das Labyrinth nach Hause führen.'],
   ['waage', 'Waage', 'Mathematik', 'Gewichte auflegen, bis die Waage gerade ist.'],
   ['spiegelbild', 'Spiegelbild', 'Knobeln', 'Ein Muster an der goldenen Linie spiegeln.'],
-  ['zahlen-pfad', 'Zahlen-Pfad', 'Knobeln', 'Einen Weg von 1 bis zur letzten Zahl durch alle Felder ziehen.']];
+  ['zahlen-pfad', 'Zahlen-Pfad', 'Knobeln', 'Einen Weg von 1 bis zur letzten Zahl durch alle Felder ziehen.'],
+  ['brueche', 'Brüche', 'Mathematik', 'Brüche an Pizza und Streifen erkennen, malen und vergleichen.'],
+  ['muster-reihe', 'Muster-Reihe', 'Knobeln', 'Erkennen, wie das Muster weitergeht.'],
+  ['lichtstrahl', 'Lichtstrahl', 'Knobeln', 'Spiegel drehen, bis das Licht den Kristall trifft.']];
 var ARTEN = ['Alle', 'Mathematik', 'Deutsch', 'Knobeln'];
 function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function art() { var a = decodeURIComponent(location.hash.slice(1)).toLowerCase(); return ARTEN.filter(function (x) { return x.toLowerCase() === a; })[0] || 'Alle'; }
