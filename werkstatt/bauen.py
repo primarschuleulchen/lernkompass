@@ -314,3 +314,85 @@ for name in KNOBELSPIELE:
         k.rep('"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"', '"three":"../bibliothek/three/build/three.module.min.js"')
         k.rep('"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"', '"three/addons/":"../bibliothek/three/examples/jsm/"')
     k.schreibe('spiele/' + name + '.html')
+
+# ---------------------------------------------------------------- Live-Quiz (aus der Klassenkiste, ohne Datenbank)
+# Original = quiz.html der Klassenkiste (Repo knobelnest). Hier: Quiz erstellen und am Beamer spielen (Vorschau-Modus),
+# nichts wird gespeichert (nur im Speicher der offenen Seite). Mitspielen per QR-Code, Speichern, Ordner der Kinder
+# und KI gibt es nur in der Klassenkiste: Knöpfe zeigen dann einen Hinweis (kkNur).
+q = Bau('quiz')
+# Bilder und Schrift aus der Eulenkiste
+q.rep('bilder/kacheln/quiz-buzzer.webp', 'quiz-buzzer.webp', 9)
+q.rep('bilder/eule.webp', '../eulenkiste.webp', 3)
+q.rep('url(schriften/patrick-hand.woff2)', 'url(../schriften/patrick-hand.woff2)')
+q.rep('aria-label="Zurück zur Klassenkiste" title="Zurück zur Klassenkiste"', 'aria-label="Zurück zur Eulenkiste" title="Zurück zur Eulenkiste"', 2)
+q.rep('<title>', '<link rel="icon" type="image/png" href="../eulenkiste-icon.png">\n<meta name="referrer" content="no-referrer">\n<title>')
+# Ersatz für die Brücke der Klassenkiste: alles nur im Speicher dieser Seite
+QUIZ_SHIM = r"""<script>
+/* Eulenkiste: Ersatz für window.knQuiz der Klassenkiste. Nichts wird gespeichert, alles verschwindet beim Schliessen. */
+(function () {
+  var M = { liste: { list: [], ordner: [] }, quiz: {} }, kopie = function (x) { return JSON.parse(JSON.stringify(x)); };
+  var nein = function () { return Promise.reject(new Error('Nur in der Klassenkiste')); };
+  window.EK_QUIZ = {
+    mode: 'teacher',
+    list: function () { return Promise.resolve(kopie(M.liste)); },
+    saveList: function (d) { M.liste = kopie(d); return Promise.resolve(); },
+    load: function (id) { return Promise.resolve(M.quiz[id] ? kopie(M.quiz[id]) : null); },
+    save: function (id, q) { M.quiz[id] = kopie(q); return Promise.resolve(); },
+    remove: function (id) { delete M.quiz[id]; return Promise.resolve(); },
+    back: function () { location.href = '../'; }, home: function () { location.href = '../'; },
+    kidClasses: function () { return Promise.resolve([]); }, kidList: function () { return Promise.resolve([]); },
+    kidGet: nein, kidSave: nein, kidDelete: nein, kidToggle: nein, kidNew: nein, kidMembers: nein,
+    open: nein, host: nein, step: nein, close: nein, kick: nein, join: nein, state: nein, answer: nein,
+    qr: nein, joinUrl: function () { return ''; }
+  };
+  window.addEventListener('beforeunload', function (e) { if (M.liste.list.length) { e.preventDefault(); e.returnValue = ''; } });
+  // Hinweis: Diese Funktion gibt es nur in der Klassenkiste
+  window.kkNur = function (was) {
+    var d = document.getElementById('kkNur');
+    if (!d) { d = document.createElement('div'); d.id = 'kkNur'; d.className = 'kk-nur'; document.body.appendChild(d);
+      d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-zu]')) d.hidden = true; }); }
+    d.innerHTML = '<div class="kk-nur-box" role="dialog" aria-label="Nur in der Klassenkiste"><b>🔒 ' + was + '</b>' +
+      '<p>Das gibt es nur in der Klassenkiste. Dort spielen die Kinder mit ihren eigenen Geräten per QR-Code mit, deine Quiz bleiben gespeichert, und die KI erstellt Quiz aus Arbeitsblättern.</p>' +
+      '<p class="klein">Hier in der Eulenkiste kannst du Quiz erstellen und am Beamer mit der Klasse spielen. Gespeichert wird nichts.</p>' +
+      '<div class="kk-nur-kn"><a class="btn gold" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Zur Klassenkiste ✦</a><button class="btn" data-zu>Schliessen</button></div></div>';
+    d.hidden = false;
+  };
+})();
+</script>
+"""
+q.rep('<script>\n(function () {\n  \'use strict\';\n  var B = null;', QUIZ_SHIM + '<script>\n(function () {\n  \'use strict\';\n  var B = null;')
+q.rep("""  try { B = window.parent && window.parent !== window && window.parent.knQuiz; } catch (e) { B = null; }""", """  B = window.EK_QUIZ;""")
+q.rep('</style>', """.kk-nur{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(31,36,33,.35)}
+.kk-nur[hidden]{display:none}
+.kk-nur-box{max-width:460px;background:#fff;border-radius:24px;padding:24px 26px;box-shadow:0 18px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:10px}
+.kk-nur-box b{font-size:24px;font-weight:400}
+.kk-nur-box .klein{color:var(--soft,#5f6963);font-size:16px}
+.kk-nur-kn{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn.kk-zu{opacity:.75}
+.eule-hinweis{margin:-6px 0 14px;padding:10px 16px;border-radius:16px;background:#fbf3dc;border:1.5px dashed #d6ad45;font-size:16px;color:#4a3d1a}
+</style>""", 1)
+# Ordner «Von den Kindern» gibt es hier nicht
+q.rep(".concat([['kinder', '✦ Von den Kindern', null]])", '')
+# Knöpfe: «Am Beamer spielen» (= Vorschau) statt Live; QR-Code und KI nur in der Klassenkiste
+q.rep("""'<div class="qc-main"><button class="btn gold" data-a="live" data-id="' + h(x.id) + '"' + (x.n ? '' : ' disabled') + '>▶ Live spielen</button><button class="btn" data-a="vor" data-id="' + h(x.id) + '"' + (x.n ? '' : ' disabled') + '>👁 Vorschau</button></div>'""",
+      """'<div class="qc-main"><button class="btn gold" data-a="vor" data-id="' + h(x.id) + '"' + (x.n ? '' : ' disabled') + '>▶ Am Beamer spielen</button><button class="btn kk-zu" data-a="live" data-id="' + h(x.id) + '">🔒 QR-Code</button></div>'""")
+q.rep("""(B.mode === 'kid' ? '' : '<button class="btn gold" data-a="edLive">▶ Live spielen</button>')""",
+      """'<button class="btn kk-zu" data-a="edLive">🔒 QR-Code</button>'""")
+q.rep("""<button class="btn" data-a="edVor">👁 ' + (B.mode === 'kid' ? 'Ausprobieren' : 'Vorschau') + '</button>'""",
+      """<button class="btn gold" data-a="edVor">▶ Am Beamer spielen</button>'""")
+q.rep("""  ACT.live = async function (el) {""", """  ACT.live = async function (el) { return kkNur('Live spielen per QR-Code');""")
+q.rep("""  ACT.edLive = async function () {""", """  ACT.edLive = async function () { return kkNur('Live spielen per QR-Code');""")
+q.rep("""  ACT.kiOpen = function () {""", """  ACT.kiOpen = function () { return kkNur('Quiz mit KI erstellen');""")
+q.rep("""'<button class="new ki" data-a="kiOpen"><span>✨</span>Mit KI erstellen<small class="muted">aus einem PDF oder Arbeitsblatt</small></button>'""",
+      """'<button class="new ki kk-zu" data-a="kiOpen"><span>🔒</span>Mit KI erstellen<small class="muted">nur in der Klassenkiste</small></button>'""")
+# Hinweis «gespeichert» passt hier nicht
+q.rep("""(L.dirty ? 'wird gespeichert …' : '✓ gespeichert')""", """'nur bis zum Schliessen'""")
+q.rep("'✓ gespeichert'", "'nur bis zum Schliessen'", 2)
+# Willkommen: was hier geht und was die Klassenkiste kann
+q.rep("""<h1>Live-Quiz mit der ganzen Klasse</h1>' +
+      '<p>Fragen erstellen, an der Wandtafel starten, die Kinder scannen den QR-Code und spielen alle gleichzeitig mit.</p></div></div>'""",
+      """<h1>Quiz mit der ganzen Klasse</h1>' +
+      '<p>Fragen erstellen und am Beamer mit der Klasse spielen. Gratis und ohne Anmeldung.</p></div></div>' +
+      '<p class="eule-hinweis">Hier wird nichts gespeichert: Beim Schliessen der Seite sind die Quiz weg. In der <a href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">Klassenkiste</a> bleiben sie gespeichert, die Kinder spielen per QR-Code mit ihren Geräten mit, und die KI erstellt Quiz aus Arbeitsblättern.</p>'""")
+q.rep('data-a="kiOpen">✨ Fragen mit KI', 'data-a="kiOpen">🔒 Fragen mit KI')
+q.schreibe('quiz/index.html')
