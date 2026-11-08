@@ -112,9 +112,11 @@ FILME.umfrage = async function () {
   for (let i = 0; i < 10; i++) { await setz(q, kids[i], [wahl[i]]); await f.warte(500); }
   await f.warte(1800);
   await f.hin(p.locator('[data-a=uNav][data-d="1"]')); await f.warte(1200);
-  q = await cur(); const w = ['lustig', 'spannend', 'lustig', 'müde', 'super', 'lustig', 'spannend', 'cool', 'super', 'lustig'];
-  for (let i = 0; i < 10; i++) { await setz(q, kids[i], [w[i]]); await f.warte(400); }
-  await f.warte(3000);
+  // Wortwolke: je öfter ein Wort, desto grösser
+  q = await cur(); const w = [['lustig'], ['spannend', 'lustig'], ['lustig'], ['müde'], ['super', 'lustig'], ['spannend'], ['lustig', 'cool'],
+    ['super'], ['lustig'], ['spannend', 'super'], ['toll'], ['lustig', 'spannend']];
+  for (let i = 0; i < w.length && i < kids.length; i++) { await setz(q, kids[i], w[i]); await f.warte(450); }
+  await f.warte(3500);
   await f.fertig('umfrage');
 };
 
