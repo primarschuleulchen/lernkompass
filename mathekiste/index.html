@@ -64,7 +64,7 @@
 <script>
 // Spiele in ../spiele/<id>.html, Bilder in ../spiele/<id>-bild.webp. Gewählte Art im Hash (#mathematik usw.), damit «←» im Spiel dorthin zurückführt.
 var SPIELE = [
-  ['rechenoperationen', 'Rechenoperationen', 'Mathe 5 · Lernziele 5.5', 'Plus, Minus, Mal und Durch: im Kopf, halbschriftlich, schriftlich und flexibel. Mit Merkblättern.']];
+  ['rechenoperationen', 'Rechenoperationen', 'Mathe 5', 'Plus, Minus, Mal und Durch: im Kopf, halbschriftlich, schriftlich und flexibel. Mit Merkblättern.']];
 var ARTEN = ['Alle'];
 function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 function art() { var a = decodeURIComponent(location.hash.slice(1)).toLowerCase(); return ARTEN.filter(function (x) { return x.toLowerCase() === a; })[0] || 'Alle'; }

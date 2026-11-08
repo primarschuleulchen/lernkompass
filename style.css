@@ -178,6 +178,8 @@ section[id]{scroll-margin-top:96px}
 .mehr-schloss{position:absolute;right:-4px;bottom:-2px;width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:15px;box-shadow:0 2px 8px rgba(63,120,168,.25)}
 .mehr-kachel b{font-weight:400;font-size:21px;line-height:1.1;text-align:center}
 .mehr-kachel small{font-size:15px;color:var(--sky-deep)}
+.mehr-weitere{text-decoration:none}
+.mehr-punkte{display:grid;place-items:center;border-radius:50%;background:#fffaf0;box-shadow:0 0 0 2px var(--gold);font-size:60px;line-height:1;color:var(--gold);padding-bottom:22px;box-sizing:border-box}
 .video-fenster{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px;background:rgba(31,36,33,.45)}
 .video-fenster[hidden]{display:none}
 .video-box{position:relative;width:min(820px,100%);max-height:calc(100dvh - 32px);overflow:auto;background:#fff;border-radius:26px;padding:20px 22px 22px;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:12px}
