@@ -1,6 +1,6 @@
 # Eulenkiste – Arbeitsanleitung für Claude
 
-Übersichtsseite von Primarschuleulchen mit digitalen Tools. Adresse: https://eulenkiste.primarschuleulchen.com/ (Repository heisst noch `lernkompass`; GitHub Pages, Branch `main`, eigene Adresse über die Datei `CNAME`; DNS bei WordPress.com: CNAME `eulenkiste` → `primarschuleulchen.github.io`). Die Klassenkiste ist unter https://klassenkiste.primarschuleulchen.com/.
+Übersichtsseite von Primarschuleulchen mit digitalen Tools. Adresse: https://eulenkiste.primarschuleulchen.com/ (Repository heisst noch `lernkompass`; seit 9.11.2026 bei **Infomaniak** Web Hosting, Ordner `sites/eulenkiste.primarschuleulchen.com`, `.htaccess` für https und Sicherheits-Kopfzeilen; DNS bei WordPress.com: A `eulenkiste` → 185.176.225.55, AAAA → 2001:1600:0:aaaa::80:a1). Grund: GitHub-Konto gesperrt. Online stellen: Zip ohne `werkstatt/`, `CLAUDE.md`, `README.md`, `CNAME`, die Lehrerin lädt es per Web FTP hoch und entpackt. Die Klassenkiste ist unter https://klassenkiste.ch/.
 Die Benutzerin ist Lehrerin, keine Programmiererin: Antworten auf Deutsch in Schweizer Schreibweise («ss», «…»), kurz und ohne Fachjargon.
 
 ## Grundregel: keine Daten
