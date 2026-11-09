@@ -618,7 +618,7 @@ select.field{min-height:42px;font-family:var(--ui)}
     <a class="lk-back" href="../" title="Zurück zur Eulenkiste" aria-label="Zurück zur Eulenkiste"><span aria-hidden="true">←</span><img src="../eulenkiste.webp" alt="" width="36" height="36"></a>
     <h1 class="marke"><span class="marke-text"><b>Klassen<em>-</em>Pinnwand<i>✦</i></b><small>Ideen sammeln · ordnen · abstimmen</small></span></h1>
     <span class="status" id="status"><i></i><span>Verbinde …</span></span>
-    <a class="kk-hint" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener" title="In der Klassenkiste schreiben und stimmen die Kinder an ihren eigenen Geräten mit.">🔒 Kinder an eigenen Geräten: nur in der Klassenkiste</a>
+    <a class="kk-hint" href="https://klassenkiste.ch/" target="_blank" rel="noopener" title="In der Klassenkiste schreiben und stimmen die Kinder an ihren eigenen Geräten mit.">🔒 Kinder an eigenen Geräten: nur in der Klassenkiste</a>
     <div class="seg" id="roleSeg" hidden>
       <button type="button" data-act="role" data-v="lp" aria-pressed="true">Lehrperson</button>
       <button type="button" data-act="role" data-v="kind" aria-pressed="false">Kinder-Ansicht</button>
@@ -932,7 +932,7 @@ function newBoardHTML() {
     <div class="tpls" role="list">${TPL.map(x => `<button type="button" class="tpl" role="listitem" data-act="tpl" data-v="${x.id}" aria-pressed="${x.id === t.id}"><span class="tpl-top"><span class="tpl-i" aria-hidden="true">${x.icon}</span><b>${esc(x.name)}</b></span>${tplSVG(x)}<span class="tpl-d">${esc(x.desc)}</span></button>`).join("")}</div>
     ${t.cats ? `<p class="sub tpl-sel"><b>${esc(t.name)}:</b> ${t.cats.map(c => "«" + esc(c[0]) + "»").join(" · ")}</p>` : ""}
     <div class="row"><input class="field grow" id="newBoard" data-keep maxlength="60" placeholder="${esc(t.ph)}" aria-label="Name der Pinnwand"><button class="btn" type="button" data-act="newboard">${t.id === "leer" ? "Erstellen" : esc(t.icon) + " Erstellen"}</button></div>
-    <div class="vl-hint"><span class="vl-stern" aria-hidden="true">✦</span><p><b>Eigene Vorlagen?</b> In der Klassenkiste können Sie Vorlagen bearbeiten, löschen und eigene erstellen, dazu viele weitere Werkzeuge für Ihre Klasse.</p><a class="btn vl-btn" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">✦ Hol dir jetzt den Zugang</a></div></section>`;
+    <div class="vl-hint"><span class="vl-stern" aria-hidden="true">✦</span><p><b>Eigene Vorlagen?</b> In der Klassenkiste können Sie Vorlagen bearbeiten, löschen und eigene erstellen, dazu viele weitere Werkzeuge für Ihre Klasse.</p><a class="btn vl-btn" href="https://klassenkiste.ch/" target="_blank" rel="noopener">✦ Hol dir jetzt den Zugang</a></div></section>`;
 }
 function bsetHTML() {
   const b = curBoard(); if (!b) return "";

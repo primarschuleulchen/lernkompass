@@ -79,7 +79,7 @@ FILME.quiz = async function () {
     .then(() => DB.storeSet('quiz-qz1', { id: 'qz1', titel: 'Tiere im Wald', fragen: fr })), fr);
   await p.evaluate("location.hash='#/quiz'"); await p.waitForSelector('.folie iframe'); const fz = p.frameLocator('.folie iframe');
   await fz.locator('[data-a=live]').first().waitFor();
-  await p.evaluate(() => { window.knQuiz.joinUrl = pin => 'https://klassenkiste.primarschuleulchen.com/#/q' + (pin ? '/' + pin : ''); });
+  await p.evaluate(() => { window.knQuiz.joinUrl = pin => 'https://klassenkiste.ch/#/q' + (pin ? '/' + pin : ''); });
   await f.warte(3500);
   f.los(); await f.warte(1200);
   await f.hin(fz.locator('[data-a=live]').first()); await f.warte(1800);

@@ -235,7 +235,7 @@ p.rep('st.lastElementChild.textContent = S.live ? "Live" : "Vorschau – wird ni
 # Hinweis: Kinder an eigenen Geräten gibt es nur in der Klassenkiste
 p.rep('    <span class="status" id="status"><i></i><span>Verbinde …</span></span>',
       '    <span class="status" id="status"><i></i><span>Verbinde …</span></span>\n'
-      '    <a class="kk-hint" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener" title="In der Klassenkiste schreiben und stimmen die Kinder an ihren eigenen Geräten mit.">🔒 Kinder an eigenen Geräten: nur in der Klassenkiste</a>')
+      '    <a class="kk-hint" href="https://klassenkiste.ch/" target="_blank" rel="noopener" title="In der Klassenkiste schreiben und stimmen die Kinder an ihren eigenen Geräten mit.">🔒 Kinder an eigenen Geräten: nur in der Klassenkiste</a>')
 p.rep('/* Erweiterungen */', '/* Erweiterungen */\n' + ZURUECK_CSS + '\nheader.top a.lk-back{margin-right:4px}'
       '\n.kk-hint{font-size:12.5px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.75);padding:3px 10px;border-radius:999px;text-decoration:none}'
       '\n.kk-hint:hover{color:var(--ink)}\n@media (max-width:700px){.kk-hint{display:none}}')
@@ -262,7 +262,7 @@ rep = p.rep; EULE = ''; SCHRIFT = ''
 exec(open(os.path.join(HIER, 'pin_stil.py'), encoding='utf-8').read())
 # Hinweis: eigene Vorlagen (bearbeiten, löschen, erstellen) gibt es in der Klassenkiste
 p.rep('esc(t.icon) + " Erstellen"}</button></div></section>`;', '''esc(t.icon) + " Erstellen"}</button></div>
-    <div class="vl-hint"><span class="vl-stern" aria-hidden="true">✦</span><p><b>Eigene Vorlagen?</b> In der Klassenkiste können Sie Vorlagen bearbeiten, löschen und eigene erstellen, dazu viele weitere Werkzeuge für Ihre Klasse.</p><a class="btn vl-btn" href="https://klassenkiste.primarschuleulchen.com/" target="_blank" rel="noopener">✦ Hol dir jetzt den Zugang</a></div></section>`;''')
+    <div class="vl-hint"><span class="vl-stern" aria-hidden="true">✦</span><p><b>Eigene Vorlagen?</b> In der Klassenkiste können Sie Vorlagen bearbeiten, löschen und eigene erstellen, dazu viele weitere Werkzeuge für Ihre Klasse.</p><a class="btn vl-btn" href="https://klassenkiste.ch/" target="_blank" rel="noopener">✦ Hol dir jetzt den Zugang</a></div></section>`;''')
 p.schreibe('pinnwand/index.html')
 
 # ---------------------------------------------------------------- Wort des Tages (Lernspiel)
